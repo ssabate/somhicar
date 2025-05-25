@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Viatges{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800 overflow-hidden w-full">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-10 left-1/2 w-60 h-60 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center relative z-10">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl transform transition duration-500 hover:scale-105">
+            Els teus viatges
+        </h1>
+        <p class="mt-6 text-xl text-blue-100 max-w-3xl mx-auto">
+            Gestiona els teus viatges com a conductor, crea-ne de nous o edita els existents.
+        </p>
+    </div>
+</div>
+
+<!-- Trips Section -->
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Create New Trip Button -->
+        <div class="mb-10">
+            <a href="{{ url_for('main.create_viatge') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md hover:shadow-lg">
+                <i class="fas fa-plus mr-2"></i> Crear nou viatge
+            </a>
+        </div>
+
+        <!-- Trips List -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-900">Llista de viatges</h2>
+                    <select class="border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>Filtrar per: Tots</option>
+                        <option>Pendent</option>
+                        <option>Completat</option>
+                    </select>
+                </div>
+                {% if viatges %}
+                <div class="space-y-6">
+                    {% for viatge in viatges %}
+                    <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-6 transform transition hover:scale-105 hover:shadow-lg border-l-4 {{ 'border-green-500' if viatge.realitzat else 'border-orange-500' }}">
+                        <div class="flex justify-between items-center">
+                            <p class="text-lg font-medium text-gray-900">
+                                {{ viatge.parada_recollida.ubicacio.nom }} ↔ {{ viatge.parada_arribada.ubicacio.nom }}
+                            </p>
+                            <span class="px-3 py-1 bg-{{ 'green' if viatge.realitzat else 'orange' }}-100 text-{{ 'green' if viatge.realitzat else 'orange' }}-800 text-sm font-medium rounded-full">
+                                {{ viatge.sentit | capitalize }}
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">
+                            {{ viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }} · {{ viatge.import_ }}€
+                        </p>
+                        <p class="text-sm font-medium text-gray-700 mt-2">Detalls:</p>
+                        <ul class="list-none text-sm text-gray-500">
+                            <li class="flex items-center"><i class="fas fa-map-marker-alt text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Parada de recollida: {{ viatge.parada_recollida.descripcio }}</li>
+                            <li class="flex items-center"><i class="fas fa-map-marker-alt text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Parada d'arribada: {{ viatge.parada_arribada.descripcio }}</li>
+                            <li class="flex items-center"><i class="fas fa-car text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Vehicle: {{ viatge.vehicle.marca }} {{ viatge.vehicle.model }}</li>
+                            <li class="flex items-center"><i class="fas fa-users text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Places: {{ viatge.places_restants }}/{{ viatge.places_inicials }}</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Estat: {{ 'Completat' if viatge.realitzat else 'Pendent' }}</li>
+                        </ul>
+                        <div class="mt-4 flex space-x-4">
+                            <a href="{{ url_for('main.edit_viatge', viatge_id=viatge.id) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">
+                                <i class="fas fa-edit mr-2"></i> Editar
+                            </a>
+                            <form method="POST" action="{{ url_for('main.delete_viatge', viatge_id=viatge.id) }}" class="inline">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
+                                    <i class="fas fa-trash mr-2"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-6 flex justify-center">
+                    <button class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transform transition hover:-translate-y-1 shadow-md">
+                        Carrega més viatges
+                    </button>
+                </div>
+                {% else %}
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <p class="text-sm text-gray-500">No tens viatges registrats.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Animations CSS -->
+<style>
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+</style>
+{% endblock %}

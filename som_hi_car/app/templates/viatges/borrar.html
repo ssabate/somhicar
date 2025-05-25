@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Viatge{% endblock %}
+
+{% block content %}
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-gray-900 mb-4">Eliminar viatge</h1>
+                <p class="text-gray-600 mb-6">Estàs segur que vols eliminar aquest viatge?</p>
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li><strong>Data i hora d'inici:</strong> {{ viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</li>
+                        <li><strong>Places:</strong> {{ viatge.places_restants }}/{{ viatge.places_inicials }}</li>
+                        <li><strong>Vehicle:</strong> {{ viatge.vehicle.marca }} {{ viatge.vehicle.model }}</li>
+                        <li><strong>Conductor:</strong> {{ viatge.conductor.usuari.nom_complet }}</li>
+                        <li><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</li>
+                        <li><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</li>
+                        <li><strong>Sentit:</strong> {{ viatge.sentit | capitalize }}</li>
+                        <li><strong>Import:</strong> {{ viatge.import_ }}€</li>
+                    </ul>
+                </div>
+                <form method="POST" action="{{ url_for('main.delete_viatge', viatge_id=viatge.id) }}" class="flex space-x-4">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
+                        Eliminar
+                    </button>
+                    <a href="{{ url_for('main.viatges') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-gray-500 hover:bg-gray-600 transform transition hover:-translate-y-1 shadow-md">
+                        Cancel·lar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

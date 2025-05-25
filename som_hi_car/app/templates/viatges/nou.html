@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Nou Viatge{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Crear un nou viatge</h1>
+        <form method="POST" action="{{ url_for('main.create_viatge') }}">        <div class="mb-4">
+            <label for="data_hora_inici" class="block text-sm font-medium text-gray-700">Data i hora d'inici</label>
+            <input type="datetime-local" id="data_hora_inici" name="data_hora_inici" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="places_inicials" class="block text-sm font-medium text-gray-700">Places inicials</label>
+            <input type="number" id="places_inicials" name="places_inicials" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="vehicle_id" class="block text-sm font-medium text-gray-700">Vehicle</label>
+            <select id="vehicle_id" name="vehicle_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                {% for vehicle in vehicles %}
+                <option value="{{ vehicle.id }}">{{ vehicle.marca }} {{ vehicle.model }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="conductor_id" class="block text-sm font-medium text-gray-700">Conductor</label>
+            <select id="conductor_id" name="conductor_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                {% for conductor in conductors %}
+                <option value="{{ conductor.id }}">{{ conductor.usuari.nom_complet }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="parada_recollida_id" class="block text-sm font-medium text-gray-700">Parada de Recollida</label>
+            <select id="parada_recollida_id" name="parada_recollida_id" required>
+                {% for parada in parades %}
+                <option value="{{ parada.id }}">{{ parada.descripcio }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="parada_arribada_id" class="block text-sm font-medium text-gray-700">Parada d'Arribada</label>
+            <select id="parada_arribada_id" name="parada_arribada_id" required>
+                {% for parada in parades %}
+                <option value="{{ parada.id }}">{{ parada.descripcio }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="sentit" class="block text-sm font-medium text-gray-700">Sentit</label>
+            <select id="sentit" name="sentit" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                <option value="muntada">Muntada</option>
+                <option value="baixada">Baixada</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="import_" class="block text-sm font-medium text-gray-700">Import (€)</label>
+            <input type="number" step="0.01" id="import_" name="import_" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Crear</button>
+    </form>
+</div>
+{% endblock %}

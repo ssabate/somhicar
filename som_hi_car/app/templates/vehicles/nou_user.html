@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Afegeix un vehicle{% endblock %}
+
+{% block content %}
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-gray-900 mb-4">Afegeix un vehicle</h1>
+                {% if not tipus_vehicles %}
+                <div class="bg-red-50 rounded-lg p-4 mb-6">
+                    <p class="text-sm text-red-700">No hi ha tipus de vehicles disponibles. Contacta amb l’administrador.</p>
+                </div>
+                {% endif %}
+                <form method="POST" action="{{ url_for('main.create_vehicle_user') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Matrícula</label>
+                            {{ form.matricula(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ex: 1234 ABC") }}
+                            {% if form.matricula.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.matricula.errors[0] }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Marca</label>
+                            {{ form.marca(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ex: Toyota") }}
+                            {% if form.marca.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.marca.errors[0] }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Model</label>
+                            {{ form.model(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ex: Corolla") }}
+                            {% if form.model.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.model.errors[0] }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Color</label>
+                            {{ form.color(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ex: Blau") }}
+                            {% if form.color.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.color.errors[0] }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Nombre de places</label>
+                            {{ form.num_places(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                            {% if form.num_places.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.num_places.errors[0] }}</p>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tipus de vehicle</label>
+                            {{ form.tipus_vehicle_id(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                            {% if form.tipus_vehicle_id.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ form.tipus_vehicle_id.errors[0] }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mt-6 flex space-x-4">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                            Afegeix vehicle
+                        </button>
+                        <a href="{{ url_for('main.perfil') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-gray-500 hover:bg-gray-600 transform transition hover:-translate-y-1 shadow-md">
+                            Cancel·lar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

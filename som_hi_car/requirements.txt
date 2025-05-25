@@ -1,0 +1,12 @@
+# Per a instal·lar-los amb pip install -r requirements.txt --break-system-packages
+
+Flask~=3.0.2
+Flask-SQLAlchemy
+Flask-WTF
+oracledb
+cx_Oracle
+email-validator
+SQLAlchemy~=2.0.36
+WTForms~=3.2.1
+Flask-Login~=0.6.3
+Werkzeug~=3.0.1

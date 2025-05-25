@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Nou Passatger{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Crear un nou passatger</h1>
+    <form method="POST" action="{{ url_for('main.create_passatger') }}">
+        <div class="mb-4">
+            <label for="usuari_id" class="block text-sm font-medium text-gray-700">Usuari</label>
+            <select id="usuari_id" name="usuari_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                {% for usuari in usuaris %}
+                <option value="{{ usuari.id }}">{{ usuari.nom_complet }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="vegades_impuntuals" class="block text-sm font-medium text-gray-700">Vegades Impuntuals</label>
+            <input type="number" id="vegades_impuntuals" name="vegades_impuntuals" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="vegades_no_presentat" class="block text-sm font-medium text-gray-700">Vegades No Presentat</label>
+            <input type="number" id="vegades_no_presentat" name="vegades_no_presentat" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="necessita_seient_davanter" class="block text-sm font-medium text-gray-700">Necessita Seient Davanter</label>
+            <input type="checkbox" id="necessita_seient_davanter" name="necessita_seient_davanter" class="mt-1">
+        </div>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Crear</button>
+    </form>
+</div>
+{% endblock %}

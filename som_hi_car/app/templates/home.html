@@ -1,0 +1,373 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<!-- Hero Section with animated gradient and floating elements -->
+<div class="relative bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
+    <!-- Floating circles decoration -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="absolute top-20 left-10 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-10 w-40 sm:w-56 lg:w-72 h-40 sm:h-56 lg:h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-10 left-1/2 w-32 sm:w-48 lg:w-60 h-32 sm:h-48 lg:h-60 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white transform transition duration-500 hover:scale-105">
+            Comparteix el viatge, estalvia recursos
+        </h1>
+        <p class="mt-4 sm:mt-6 text-lg sm:text-xl text-blue-100 max-w-3xl mx-auto">
+            Connectem conductors i passatgers per fer viatges més sostenibles entre el Port i les poblacions properes.
+        </p>
+        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="/viatges" class="w-full sm:w-auto flex items-center justify-center px-6 py-3 border border-transparent text-sm sm:text-base font-medium rounded-full text-blue-700 bg-white hover:bg-gray-50 md:py-3 md:text-lg md:px-8 transform transition hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                <i class="fas fa-search mr-2"></i> Cerca viatges
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- How it works section with animated cards -->
+<div class="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <span class="inline-block px-3 py-1 text-xs sm:text-sm font-semibold text-blue-600 bg-blue-100 rounded-full uppercase tracking-wide">Com funciona</span>
+            <h2 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-900 relative">
+                Una nova manera de viatjar
+                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-blue-500 rounded-full"></span>
+            </h2>
+            <p class="mt-4 text-base sm:text-lg lg:text-xl text-gray-500 max-w-2xl mx-auto">
+                Descobreix com Som-Hi Car et pot ajudar a estalviar temps i diners mentre cuides del medi ambient.
+            </p>
+        </div>
+
+        <div class="mt-10 sm:mt-12">
+            <div class="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105 hover:shadow-xl">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg p-4 shadow-md">
+                                <i class="fas fa-search text-white text-lg sm:text-xl"></i>
+                            </div>
+                            <div class="ml-4 sm:ml-5">
+                                <h3 class="text-base sm:text-lg font-bold text-gray-900">1. Cerca o ofereix</h3>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm sm:text-gray-600">
+                            Troba viatges disponibles o publica el teu propi trajecte entre el Port i altres poblacions.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-blue-500 mr-2"></i>
+                            <span class="text-sm text-gray-500">Ràpid i senzill</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105 hover:shadow-xl">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg p-4 shadow-md">
+                                <i class="fas fa-handshake text-white text-lg sm:text-xl"></i>
+                            </div>
+                            <div class="ml-4 sm:ml-5">
+                                <h3 class="text-base sm:text-lg font-bold text-gray-900">2. Connecta</h3>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm sm:text-gray-600">
+                            Contacta amb conductors o passatgers i confirma els detalls del viatge.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-comments text-blue-500 mr-2"></i>
+                            <span class="text-sm text-gray-500">Xat integrat</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105 hover:shadow-xl">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg p-4 shadow-md">
+                                <i class="fas fa-car-side text-white text-lg sm:text-xl"></i>
+                            </div>
+                            <div class="ml-4 sm:ml-5">
+                                <h3 class="text-base sm:text-lg font-bold text-gray-900">3. Viatja</h3>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm sm:text-gray-600">
+                            Gaudeix del trajecte compartint despeses i coneixent gent nova.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-smile text-blue-500 mr-2"></i>
+                            <span class="text-sm text-gray-500">Experiència agradable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popular routes section with map visualization -->
+<div class="py-12 sm:py-16 bg-gradient-to-b from-gray-50 to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <span class="inline-block px-3 py-1 text-xs sm:text-sm font-semibold text-blue-600 bg-blue-100 rounded-full uppercase tracking-wide">Rutes populars</span>
+            <h2 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-900 relative">
+                Trajectes més sol·licitats
+                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-blue-500 rounded-full"></span>
+            </h2>
+            <p class="mt-4 text-base sm:text-lg lg:text-xl text-gray-500 max-w-2xl mx-auto">
+                Les rutes més freqüents entre el Port i les poblacions properes
+            </p>
+        </div>
+
+        <div class="mt-10 sm:mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Route Card 1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl">
+                <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
+                    <i class="fas fa-map-marked-alt text-white text-4xl sm:text-5xl lg:text-6xl opacity-30"></i>
+                </div>
+                <div class="p-4 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-blue-500 rounded-lg p-2 sm:p-3 shadow-md">
+                            <i class="fas fa-map-marker-alt text-white text-sm sm:text-base"></i>
+                        </div>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Port - Tortosa</h3>
+                            <p class="text-sm text-gray-600">25 min · 35 km</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                        <div class="flex items-center mb-2 sm:mb-0">
+                            <i class="fas fa-users text-blue-500 mr-2"></i>
+                            <span class="text-sm text-gray-600">5 viatges avui</span>
+                        </div>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs sm:text-sm font-medium rounded-full">Des de 3€</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Card 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl">
+                <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-r from-indigo-400 to-purple-500 flex items-center justify-center">
+                    <i class="fas fa-map-marked-alt text-white text-4xl sm:text-5xl lg:text-6xl opacity-30"></i>
+                </div>
+                <div class="p-4 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-indigo-500 rounded-lg p-2 sm:p-3 shadow-md">
+                            <i class="fas fa-map-marker-alt text-white text-sm sm:text-base"></i>
+                        </div>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Port - Roquetes</h3>
+                            <p class="text-sm text-gray-600">15 min · 20 km</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                        <div class="flex items-center mb-2 sm:mb-0">
+                            <i class="fas fa-users text-indigo-500 mr-2"></i>
+                            <span class="text-sm text-gray-600">8 viatges avui</span>
+                        </div>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs sm:text-sm font-medium rounded-full">Des de 2€</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Card 3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl">
+                <div class="h-32 sm:h-40 lg:h-48 bg-gradient-to-r from-purple-400 to-blue-500 flex items-center justify-center">
+                    <i class="fas fa-map-marked-alt text-white text-4xl sm:text-5xl lg:text-6xl opacity-30"></i>
+                </div>
+                <div class="p-4 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-purple-500 rounded-lg p-2 sm:p-3 shadow-md">
+                            <i class="fas fa-map-marker-alt text-white text-sm sm:text-base"></i>
+                        </div>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-base sm:text-lg font-bold text-gray-900">Port - L'Aldea</h3>
+                            <p class="text-sm text-gray-600">40 min · 55 km</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                        <div class="flex items-center mb-2 sm:mb-0">
+                            <i class="fas fa-users text-purple-500 mr-2"></i>
+                            <span class="text-sm text-gray-600">3 viatges avui</span>
+                        </div>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 text-xs sm:text-sm font-medium rounded-full">Des de 5€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials with modern cards -->
+<div class="py-12 sm:py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <span class="inline-block px-3 py-1 text-xs sm:text-sm font-semibold text-blue-600 bg-blue-100 rounded-full uppercase tracking-wide">Experiències</span>
+            <h2 class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-900 relative">
+                Què diuen els nostres usuaris
+                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-1 bg-blue-500 rounded-full"></span>
+            </h2>
+            <p class="mt-4 text-base sm:text-lg lg:text-xl text-gray-500 max-w-2xl mx-auto">
+                Més de 5.000 usuaris satisfets compartint viatges
+            </p>
+        </div>
+
+        <div class="mt-10 sm:mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Testimonial 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105">
+                <div class="relative h-32 sm:h-40 lg:h-48 bg-gradient-to-r from-blue-400 to-indigo-500">
+                    <div class="absolute -bottom-6 left-4 sm:left-6 w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-quote-left text-blue-500 text-lg sm:text-xl"></i>
+                    </div>
+                </div>
+                <div class="p-4 sm:p-6 pt-8 sm:pt-10">
+                    <h3 class="text-base sm:text-lg font-bold text-gray-900">Molt pràctic</h3>
+                    <p class="mt-4 text-sm sm:text-gray-600 italic">
+                        "Faig el trajecte Port-Tortosa cada dia per treballar i amb Som-Hi Car he pogut estalviar molts diners en gasolina. A més, he conegut gent molt interessant!"
+                    </p>
+                    <div class="mt-4 sm:mt-6 flex items-center">
+                        <img class="h-10 sm:h-12 w-10 sm:w-12 rounded-full object-cover border-2 border-blue-500" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Default User Avatar">
+                        <div class="ml-3 sm:ml-4">
+                            <p class="text-sm font-bold text-gray-900">Anna M.</p>
+                            <p class="text-sm text-gray-500">Passatgera habitual</p>
+                            <div class="flex mt-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105">
+                <div class="relative h-32 sm:h-40 lg:h-48 bg-gradient-to-r from-indigo-400 to-purple-500">
+                    <div class="absolute -bottom-6 left-4 sm:left-6 w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-quote-left text-indigo-500 text-lg sm:text-xl"></i>
+                    </div>
+                </div>
+                <div class="p-4 sm:p-6 pt-8 sm:pt-10">
+                    <h3 class="text-base sm:text-lg font-bold text-gray-900">Fiable i segur</h3>
+                    <p class="mt-4 text-sm sm:text-gray-600 italic">
+                        "Com a conductor, m'agrada poder oferir places quan faig els meus viatges. El sistema de valoracions fa que tothom es comporti correctament."
+                    </p>
+                    <div class="mt-4 sm:mt-6 flex items-center">
+                        <img class="h-10 sm:h-12 w-10 sm:w-12 rounded-full object-cover border-2 border-indigo-500" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Default User Avatar">
+                        <div class="ml-3 sm:ml-4">
+                            <p class="text-sm font-bold text-gray-900">Joan P.</p>
+                            <p class="text-sm text-gray-500">Conductor verificat</p>
+                            <div class="flex mt-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:scale-105">
+                <div class="relative h-32 sm:h-40 lg:h-48 bg-gradient-to-r from-purple-400 to-blue-500">
+                    <div class="absolute -bottom-6 left-4 sm:left-6 w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-quote-left text-purple-500 text-lg sm:text-xl"></i>
+                    </div>
+                </div>
+                <div class="p-4 sm:p-6 pt-8 sm:pt-10">
+                    <h3 class="text-base sm:text-lg font-bold text-gray-900">Reduïm la nostra petjada</h3>
+                    <p class="mt-4 text-sm sm:text-gray-600 italic">
+                        "Estic contenta de poder contribuir a reduir el nombre de cotxes a la carretera. És una manera senzilla de fer el meu petit gest pel medi ambient."
+                    </p>
+                    <div class="mt-4 sm:mt-6 flex items-center">
+                        <img class="h-10 sm:h-12 w-10 sm:w-12 rounded-full object-cover border-2 border-purple-500" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Default User Avatar">
+                        <div class="ml-3 sm:ml-4">
+                            <p class="text-sm font-bold text-gray-900">Marta R.</p>
+                            <p class="text-sm text-gray-500">Usuària des de 2022</p>
+                            <div class="flex mt-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section with gradient and animation -->
+<div class="relative bg-gradient-to-r from-blue-600 to-indigo-700 overflow-hidden">
+    <!-- Floating elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="absolute top-20 left-10 sm:left-20 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div class="absolute bottom-20 right-10 sm:right-20 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">
+            <span class="block">Preparat per començar?</span>
+            <span class="block mt-2">Uneix-te a Som-Hi Car avui.</span>
+        </h2>
+        <p class="mt-4 sm:mt-6 text-base sm:text-lg text-blue-100 max-w-2xl mx-auto">
+            Sigues conductor o passatger, tens un lloc a la nostra comunitat. Registra't en menys de 2 minuts i comença a estalviar.
+        </p>
+        <div class="mt-8 sm:mt-10">
+            <a href="/register" class="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 border border-transparent text-sm sm:text-base font-medium rounded-full shadow-lg text-blue-700 bg-white hover:bg-gray-50 md:text-lg transform transition hover:-translate-y-1 hover:shadow-xl">
+                Registra't ara <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle text-blue-300 mr-2"></i>
+                <span class="text-blue-100 text-sm">Fàcil d'usar</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-check-circle text-blue-300 mr-2"></i>
+                <span class="text-blue-100 text-sm">Sense compromís</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-check-circle text-blue-300 mr-2"></i>
+                <span class="text-blue-100 text-sm">Totalment gratuït</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add animations CSS -->
+<style>
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+</style>
+{% endblock %}

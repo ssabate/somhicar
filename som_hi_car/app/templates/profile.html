@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% block title %}El teu perfil{% endblock %}
+
+{% block content %}
+<!-- Hero Section with animated gradient and floating elements -->
+<div class="relative bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-10 left-1/2 w-60 h-60 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center relative z-10">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl transform transition duration-500 hover:scale-105">
+            El teu perfil
+        </h1>
+        <p class="mt-6 text-xl text-blue-100 max-w-3xl mx-auto">
+            Gestiona la teva informació personal, vehicles, viatges i valoracions.
+        </p>
+    </div>
+</div>
+
+<!-- Profile Section with animated cards -->
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Main Profile Info -->
+            <div class="md:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <img class="h-16 w-16 rounded-full object-cover border-2 border-blue-500"
+                                 src="{{ url_for('static', filename='images/avatars/' + (user.avatar if user.avatar else 'default.png')) }}"
+                                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                                 alt="{{ user.nom_complet }}">
+                            <div>
+                                <p class="text-xl font-medium text-gray-900">{{ user.nom_complet }}</p>
+                                <p class="text-sm text-gray-500">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <form method="POST" action="{{ url_for('main.update_profile') }}" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }}
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Nom</label>
+                                    {{ form.nom(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                    {% if form.nom.errors %}
+                                        <p class="text-red-500 text-sm mt-1">{{ form.nom.errors[0] }}</p>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Cognom</label>
+                                    {{ form.cognom(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                    {% if form.cognom.errors %}
+                                        <p class="text-red-500 text-sm mt-1">{{ form.cognom.errors[0] }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Correu electrònic</label>
+                                {{ form.email(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.email.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.email.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Telèfon mòbil</label>
+                                {{ form.telefon_mobil(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.telefon_mobil.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.telefon_mobil.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Telèfon fix</label>
+                                {{ form.telefon_fix(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.telefon_fix.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.telefon_fix.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Adreça</label>
+                                {{ form.adreca(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.adreca.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.adreca.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Data de naixement</label>
+                                {{ form.data_naixement(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.data_naixement.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.data_naixement.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Ubicació</label>
+                                {{ form.ubicacio_id(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.ubicacio_id.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.ubicacio_id.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Imatge de perfil</label>
+                                {{ form.avatar(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
+                                {% if form.avatar.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.avatar.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-sm font-medium text-gray-700">Nova contrasenya</label>
+                                {{ form.nova_contrasenya(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Mínim 8 caràcters") }}
+                                {% if form.nova_contrasenya.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ form.nova_contrasenya.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                                Guarda canvis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Info -->
+            <div class="md:col-span-1">
+                <!-- Driver/Passenger Info -->
+                {% if user.conductor or user.passatger %}
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl mb-6">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Informació de conductor/passatger</h3>
+                        <div class="space-y-6">
+                            {% if user.conductor %}
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Categoria de carnet: {{ user.conductor.carnet_categoria_superior or 'No especificat' }}</p>
+                                <p class="text-sm text-gray-500">Accidents: {{ user.conductor.accidents_tinguts or 'Cap' }}</p>
+                                <p class="text-sm text-gray-500">Vehicles associats: {{ user.conductor.vehicles|length }}</p>
+                            </div>
+                            {% endif %}
+                            {% if user.passatger %}
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Impuntualitats: {{ user.passatger.vegades_impuntuals or 0 }}</p>
+                                <p class="text-sm text-gray-500">No presentats: {{ user.passatger.vegades_no_presentat or 0 }}</p>
+                                <p class="text-sm text-gray-500">Seient davanter: {{ 'Sí' if user.passatger.necessita_seient_davanter else 'No' }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Vehicles -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl mb-6">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-gray-900">Vehicles</h3>
+                            <a href="{{ url_for('main.create_vehicle_user') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                                <i class="fas fa-plus mr-2"></i> Afegeix vehicle
+                            </a>
+                        </div>
+                        {% if user.conductor and user.conductor.vehicles %}
+                            {% for vehicle in user.conductor.vehicles %}
+                            <div class="bg-gray-50 rounded-lg p-4 transform transition hover:scale-105 hover:shadow-md mb-2">
+                                <p class="text-sm font-medium text-gray-900">{{ vehicle.marca }} {{ vehicle.model }}</p>
+                                <p class="text-sm text-gray-500">Matrícula: {{ vehicle.matricula }} · Color: {{ vehicle.color }} · Places: {{ vehicle.num_places }}</p>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="bg-gray-50 rounded-lg p-4 transform transition hover:scale-105 hover:shadow-md">
+                                <p class="text-sm text-gray-500">No tens vehicles registrats</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Trip History -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl mb-6">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Historial de viatges</h3>
+                        <div class="space-y-4">
+                            {% if trips %}
+                                {% for trip in trips %}
+                                <div class="bg-gray-50 rounded-lg p-4 transform transition hover:scale-105 hover:shadow-md">
+                                    <p class="text-sm font-medium text-gray-900">
+                                        {{ trip.parada_recollida.ubicacio.nom }} → {{ trip.parada_arribada.ubicacio.nom }}
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        {{ trip.data_hora_inici.strftime('%d %B %Y, %H:%M') }} · {{ trip.import_ }}€ ·
+                                        {{ 'Completat' if trip.realitzat else 'Pendent' }}
+                                    </p>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="bg-gray-50 rounded-lg p-4 transform transition hover:scale-105 hover:shadow-md">
+                                    <p class="text-sm text-gray-500">No tens viatges registrats</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ratings (for conductors only) -->
+                {% if user.conductor %}
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Valoracions</h3>
+                        <div class="flex items-center space-x-1 mb-4">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            <p class="ml-2 text-sm text-gray-900">4.8 (24 valoracions)</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4 transform transition hover:scale-105 hover:shadow-md">
+                            <div class="flex items-center space-x-4">
+                                <img class="h-10 w-10 rounded-full object-cover border-2 border-blue-500"
+                                     src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                     alt="Default User Avatar">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Anna M.</p>
+                                    <p class="text-sm text-gray-500">"Gran conductor, molt puntual i amable!"</p>
+                                    <div class="flex items-center space-x-1 mt-1">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add animations CSS -->
+<style>
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+</style>
+{% endblock %}

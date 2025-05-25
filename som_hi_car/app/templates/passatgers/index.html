@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Passatgers{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Llista de Passatgers</h1>
+    <div class="mb-4">
+        <a href="{{ url_for('main.create_passatger') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            Crear nou passatger
+        </a>
+    </div>
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 border-b">Nom</th>
+                <th class="px-4 py-2 border-b">Vegades Impuntuals</th>
+                <th class="px-4 py-2 border-b">Vegades No Presentat</th>
+                <th class="px-4 py-2 border-b">Necessita Seient Davanter</th>
+                <th class="px-4 py-2 border-b">Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for passatger in passatgers %}
+            <tr>
+                <td class="px-4 py-2 border-b">{{ passatger.usuari.nom_complet }}</td>
+                <td class="px-4 py-2 border-b">{{ passatger.vegades_impuntuals }}</td>
+                <td class="px-4 py-2 border-b">{{ passatger.vegades_no_presentat }}</td>
+                <td class="px-4 py-2 border-b">{{ 'Sí' if passatger.necessita_seient_davanter else 'No' }}</td>
+                <td class="px-4 py-2 border-b">
+                    <a href="{{ url_for('main.edit_passatger', passatger_id=passatger.id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Editar</a>
+                    <form method="POST" action="{{ url_for('main.delete_passatger', passatger_id=passatger.id) }}" class="inline">
+                        <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

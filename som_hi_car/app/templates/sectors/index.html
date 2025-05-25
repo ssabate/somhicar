@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Sectors{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Llista de Sectors</h1>
+    <div class="mb-4">
+        <a href="{{ url_for('main.create_sector') }}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            Crear nou sector
+        </a>
+    </div>
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 border-b">Descripció</th>
+                <th class="px-4 py-2 border-b">És Port</th>
+                <th class="px-4 py-2 border-b">Accions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sector in sectors %}
+            <tr>
+                <td class="px-4 py-2 border-b">{{ sector.descripcio }}</td>
+                <td class="px-4 py-2 border-b">{{ 'Sí' if sector.es_port else 'No' }}</td>
+                <td class="px-4 py-2 border-b">
+                    <a href="{{ url_for('main.edit_sector', sector_id=sector.id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Editar</a>
+                    <form method="POST" action="{{ url_for('main.delete_sector', sector_id=sector.id) }}" class="inline">
+                        <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

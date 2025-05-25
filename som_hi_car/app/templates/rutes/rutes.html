@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Rutes{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Llista de Rutes</h1>
+    <a href="{{ url_for('main.create_viatge') }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 mb-4 inline-block">
+        Crear nou viatge
+    </a>
+    {% for viatge in viatges %}
+    <div class="mb-4 border p-4 rounded-md shadow-md">
+        <p><strong>Hora:</strong> {{ viatge.data_hora_inici }}</p>
+        <p><strong>Parada Recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
+        <p><strong>Parada Arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
+        <p><strong>Places Disponibles:</strong> {{ viatge.places_restants }}</p>
+        <p><strong>Vehicle:</strong> {{ viatge.vehicle.descripcio }}</p>
+        <p><strong>Conductor:</strong> {{ viatge.conductor.nom_complet }}</p>
+        <p><strong>Import:</strong> {{ viatge.import_ }}</p>
+        <div class="mt-2">
+            <a href="{{ url_for('main.edit_viatge', viatge_id=viatge.id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Editar</a>
+            <form method="POST" action="{{ url_for('main.delete_viatge', viatge_id=viatge.id) }}" class="inline">
+                <button type="submit" class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Eliminar</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

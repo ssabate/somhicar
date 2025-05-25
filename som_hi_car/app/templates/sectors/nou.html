@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Nou Sector{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Crear un nou sector</h1>
+    <form method="POST" action="{{ url_for('main.create_sector') }}">
+        <div class="mb-4">
+            <label for="descripcio" class="block text-sm font-medium text-gray-700">Descripció</label>
+            <input type="text" id="descripcio" name="descripcio" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="es_port" class="block text-sm font-medium text-gray-700">És Port?</label>
+            <input type="checkbox" id="es_port" name="es_port" class="mt-1">
+        </div>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Crear</button>
+    </form>
+</div>
+{% endblock %}

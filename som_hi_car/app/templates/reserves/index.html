@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Reserves{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800 overflow-hidden w-full">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-10 left-1/2 w-60 h-60 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center relative z-10">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl transform transition duration-500 hover:scale-105">
+            Les teves reserves
+        </h1>
+        <p class="mt-6 text-xl text-blue-100 max-w-3xl mx-auto">
+            Consulta i gestiona les teves reserves, o apunta't a viatges disponibles.
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('auth.login') }}" class="underline hover:text-white">Inicia sessió</a> per reservar.
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<!-- Content Section -->
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Llista de rutes disponibles</h2>
+        {% if viatges %}
+            {% for viatge in viatges %}
+            <div class="mb-4 bg-white border border-gray-200 p-6 rounded-xl shadow-md transform transition hover:scale-105 hover:shadow-lg">
+                <p><strong>Hora:</strong> {{ viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</p>
+                <p><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
+                <p><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
+                <p><strong>Places disponibles:</strong> {{ viatge.places_restants }}</p>
+                {% if current_user.is_authenticated and has_passatger %}
+                    {% set is_reserved = viatge.reserves | selectattr('passatger_id', 'equalto', current_user.passatger.id) | list %}
+                    {% if is_reserved %}
+                        <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=is_reserved[0].id) }}" class="inline">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
+                                Desapuntar-se
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{{ url_for('main.create_reserva', viatge_id=viatge.id) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                            Crear reserva
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                        Inicia sessió per reservar
+                    </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                <p class="text-sm text-gray-500">No hi ha viatges disponibles actualment.</p>
+            </div>
+        {% endif %}
+
+        {% if current_user.is_authenticated and has_passatger %}
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 mt-8">Les meves reserves</h2>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+                <table class="min-w-full border border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Viatge</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada de recollida</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada d'arribada</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Accions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reserves %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</td>
+                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_recollida.descripcio }}</td>
+                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_arribada.descripcio }}</td>
+                            <td class="px-6 py-4 border-b text-sm">
+                                <a href="{{ url_for('main.edit_reserva', reserva_id=reserva.id) }}" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">Editar</a>
+                                <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id) }}" class="inline">
+                                    <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% if not reserves %}
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">No tens reserves actualment.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Animations CSS -->
+<style>
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+</style>
+{% endblock %}

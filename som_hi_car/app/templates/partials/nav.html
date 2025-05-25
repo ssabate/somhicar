@@ -1,0 +1,144 @@
+<nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center h-16">
+            <!-- Logo y marca -->
+            <div class="flex-shrink-0 flex items-center absolute left-4">
+                <a href="{{ url_for('main.home') }}" class="flex items-center space-x-4">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Som-hi Car Logo" class="h-10 w-auto">
+                    <span class="text-xl font-bold text-gray-800">Som-Hi Car</span>
+                </a>
+            </div>
+
+            <!-- Menú principal (desktop) -->
+            <div class="hidden sm:flex sm:items-center sm:justify-center flex-1">
+                <div class="flex space-x-8">
+                    <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Inici
+                    </a>
+                    <a href="{{ url_for('main.reserves') }}" class="{% if request.endpoint == 'main.reserves' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Reserves
+                    </a>
+                    {% if current_user.is_authenticated and (current_user.super_admin or current_user.conductor) %}
+                    <a href="{{ url_for('main.viatges') }}" class="{% if request.endpoint == 'main.viatges' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Viatges
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated and current_user.super_admin %}
+                    <!-- Rutas exclusivas para administradores -->
+                    <a href="{{ url_for('main.conductors') }}" class="{% if request.endpoint == 'main.conductors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Conductors
+                    </a>
+                    <a href="{{ url_for('main.vehicles') }}" class="{% if request.endpoint == 'main.vehicles' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Vehicles
+                    </a>
+                    <a href="{{ url_for('main.tipus_vehicles') }}" class="{% if request.endpoint == 'main.tipus_vehicles' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Tipus de Vehicles
+                    </a>
+                    <a href="{{ url_for('main.ubicacions') }}" class="{% if request.endpoint == 'main.ubicacions' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Ubicacions
+                    </a>
+                    <a href="{{ url_for('main.sectors') }}" class="{% if request.endpoint == 'main.sectors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Sectors
+                    </a>
+                    <a href="{{ url_for('main.parades') }}" class="{% if request.endpoint == 'main.parades' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Parades
+                    </a>
+                    <a href="{{ url_for('main.passatgers') }}" class="{% if request.endpoint == 'main.passatgers' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Passatgers
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Menú de usuario (desktop) -->
+            <div class="hidden sm:flex sm:items-center absolute right-4">
+                {% if current_user.is_authenticated %}
+                <div class="relative">
+                    <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleUserDropdown()">
+                        <span class="sr-only">Open user menu</span>
+                        <span class="text-gray-700 font-medium h-8 w-16">{{ current_user.nom_complet }}</span>
+                        <img class="h-8 w-8 rounded-full"
+                            src="{{ url_for('static', filename='images/avatars/' + (current_user.avatar if current_user.avatar else 'default.png')) }}"
+                            onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                            alt="{{ current_user.nom_complet }}">
+                    </button>
+                    <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+                        <a href="{{ url_for('main.perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</a>
+                        <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Tancar sessió</a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="space-x-4">
+                    <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 text-sm font-medium">Inicia sessió</a>
+                    <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Botón de menú móvil -->
+            <div class="flex items-center sm:hidden">
+                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false" onclick="toggleMobileMenu()">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="pt-2 pb-3 space-y-1">
+            <a href="{{ url_for('main.home') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Inici</a>
+            <a href="{{ url_for('main.reserves') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Reserves</a>
+            {% if current_user.is_authenticated and (current_user.super_admin or current_user.conductor) %}
+            <a href="{{ url_for('main.viatges') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Viatges</a>
+            <a href="{{ url_for('main.create_viatge') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Crear Viatge</a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('main.perfil') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Perfil</a>
+            <a href="{{ url_for('auth.logout') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Tancar sessió</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Inicia sessió</a>
+            <a href="{{ url_for('auth.register') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Registra't</a>
+            {% endif %}
+            {% if current_user.is_authenticated and current_user.super_admin %}
+            <!-- Rutas exclusivas para administradores -->
+            <a href="{{ url_for('main.conductors') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Conductors</a>
+            <a href="{{ url_for('main.vehicles') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Vehicles</a>
+            <a href="{{ url_for('main.tipus_vehicles') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Tipus de Vehicles</a>
+            <a href="{{ url_for('main.ubicacions') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Ubicacions</a>
+            <a href="{{ url_for('main.sectors') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Sectors</a>
+            <a href="{{ url_for('main.parades') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Parades</a>
+            <a href="{{ url_for('main.passatgers') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Passatgers</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<script>
+function toggleUserDropdown() {
+    const menu = document.getElementById('user-menu');
+    menu.classList.toggle('hidden');
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+}
+
+// Close user dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const userButton = document.getElementById('user-menu-button');
+    const userMenu = document.getElementById('user-menu');
+    const mobileButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (userButton && userMenu && !userButton.contains(event.target) && !userMenu.contains(event.target)) {
+        userMenu.classList.add('hidden');
+    }
+    if (mobileButton && mobileMenu && !mobileButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+    }
+});
+</script>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Reserva{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Editar reserva</h1>
+    <div class="mb-4 border p-4 rounded-md shadow-md">
+        <h2 class="text-lg font-bold">Dades del Viatge</h2>
+        <p><strong>Hora:</strong> {{ reserva.viatge.data_hora_inici }}</p>
+        <p><strong>Parada Recollida:</strong> {{ reserva.parada_recollida.descripcio }}</p>
+        <p><strong>Parada Arribada:</strong> {{ reserva.parada_arribada.descripcio }}</p>
+    </div>
+    <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id) }}">
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Cancel·lar Reserva</button>
+    </form>
+</div>
+{% endblock %}

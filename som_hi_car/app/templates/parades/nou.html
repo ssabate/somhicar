@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Parada{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8">
+    <h1 class="text-2xl font-bold mb-4">Crear una nova parada</h1>
+    <form method="POST" action="{{ url_for('main.create_parada') }}">
+        <div class="mb-4">
+            <label for="descripcio" class="block text-sm font-medium text-gray-700">Descripció</label>
+            <input type="text" id="descripcio" name="descripcio" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="ubicacio_id" class="block text-sm font-medium text-gray-700">Ubicació</label>
+            <select id="ubicacio_id" name="ubicacio_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                {% for ubicacio in ubicacions %}
+                <option value="{{ ubicacio.id }}">{{ ubicacio.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="separacio_port" class="block text-sm font-medium text-gray-700">Separació del Port (km)</label>
+            <input type="number" id="separacio_port" name="separacio_port" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Crear</button>
+    </form>
+</div>
+{% endblock %}
