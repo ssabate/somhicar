@@ -85,7 +85,8 @@ class AuthController:
     @staticmethod
     def login():
         if current_user.is_authenticated:
-            return redirect(url_for('main.perfil'))
+            # return redirect(url_for('main.perfil'))
+            return redirect(url_for('main.reserves'))
         form = LoginForm()
         if form.validate_on_submit():
             identifier = form.identifier.data
@@ -99,7 +100,8 @@ class AuthController:
                     if user and check_password_hash(user.contrasenya, password):
                         login_user(user)
                         flash('Has iniciat sessió amb èxit!', 'success')
-                        return redirect(url_for('main.perfil'))
+                        return redirect(url_for('main.reserves'))
+                        # return redirect(url_for('main.perfil'))
                     else:
                         flash('Correu electrònic, nom d\'usuari o contrasenya incorrectes.', 'error')
                 except Exception as e:
