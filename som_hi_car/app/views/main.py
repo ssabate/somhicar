@@ -202,15 +202,21 @@ def create_reserva(viatge_id):
     from app.controllers.reserva_controller import ReservaController
     return ReservaController.create_reserva(viatge_id)
 
-@bp_main.route('/reserves/<int:reserva_id>/editar', methods=['GET', 'POST'])
-def edit_reserva(reserva_id):
+@bp_main.route('/reserves/<int:reserva_id>/<int:conductor>/editar', methods=['GET', 'POST'])
+def edit_reserva(reserva_id, conductor):
     from app.controllers.reserva_controller import ReservaController
-    return ReservaController.edit_reserva(reserva_id)
+    return ReservaController.edit_reserva(reserva_id,conductor)
 
-@bp_main.route('/reserves/<int:reserva_id>/eliminar', methods=['POST'])
-def delete_reserva(reserva_id):
+
+@bp_main.route('/reserves/<int:reserva_id>/<int:conductor>/eliminar', methods=['POST'])
+def delete_reserva(reserva_id,conductor):
     from app.controllers.reserva_controller import ReservaController
-    return ReservaController.delete_reserva(reserva_id)
+    return ReservaController.delete_reserva(reserva_id, conductor)
+
+@bp_main.route('/reserves/<int:reserva_id>/eliminar_viatge', methods=['POST'])
+def delete_reserva_viatge(reserva_id):
+    from app.controllers.reserva_controller import ReservaController
+    return ReservaController.delete_reserva_viatge(reserva_id)
 
 @bp_main.route('/parades', methods=['GET'])
 @login_required

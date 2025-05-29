@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Editar Reserva{% endblock %}
+{% block title %}Editar Reserva Viatge{% endblock %}
 
 {% block content %}
 <div class="container mx-auto py-8">
@@ -11,7 +11,7 @@
         <p><strong>Parada Recollida:</strong> {{ reserva.parada_recollida.descripcio }}</p>
         <p><strong>Parada Arribada:</strong> {{ reserva.parada_arribada.descripcio }}</p>
     </div>
-    <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=0) }}">
+    <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id) }}">
         <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Cancel·lar Reserva</button>
     </form>
 </div>

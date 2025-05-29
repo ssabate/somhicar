@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Reserves del viatge{% endblock %}
+
+{% block content %}
+
+<!-- Content Section -->
+<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+
+        {% if current_user.is_authenticated %}
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 mt-8">Les reserves del teu viatge del {{ viatge[0].data_hora_inici.strftime('%d %B %Y, %H:%M') }}</h2>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+                <table class="min-w-full border border-gray-200">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada de recollida</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada d'arribada</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Passatger/a</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Accions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reserves %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_recollida.descripcio }}</td>
+                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_arribada.descripcio }}</td>
+                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.passatger.usuari.nom_complet }}</td>
+                            <td class="px-6 py-4 border-b text-sm">
+                                <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=1) }}" class="inline">
+                                    <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% if not reserves %}
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">No tens reserves actualment.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Animations CSS -->
+<style>
+    @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+</style>
+{% endblock %}

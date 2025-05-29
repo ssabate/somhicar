@@ -37,7 +37,7 @@
                 {% if current_user.is_authenticated and has_passatger %}
                     {% set is_reserved = viatge.reserves | selectattr('passatger_id', 'equalto', current_user.passatger.id) | list %}
                     {% if is_reserved %}
-                        <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=is_reserved[0].id) }}" class="inline">
+                        <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=is_reserved[0].id, conductor=0) }}" class="inline">
                             <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
                                 Desapuntar-se
                             </button>
@@ -79,8 +79,8 @@
                             <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_recollida.descripcio }}</td>
                             <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_arribada.descripcio }}</td>
                             <td class="px-6 py-4 border-b text-sm">
-                                <a href="{{ url_for('main.edit_reserva', reserva_id=reserva.id) }}" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">Editar</a>
-                                <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id) }}" class="inline">
+                                <a href="{{ url_for('main.edit_reserva', reserva_id=reserva.id, conductor=0) }}" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">Editar</a>
+                                <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=0) }}" class="inline">
                                     <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">Eliminar</button>
                                 </form>
                             </td>
