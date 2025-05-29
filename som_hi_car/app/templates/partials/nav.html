@@ -12,68 +12,73 @@
             <!-- Menú principal (desktop) -->
             <div class="hidden sm:flex sm:items-center sm:justify-center flex-1">
                 <div class="flex space-x-8">
-                    <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Inici
-                    </a>
-                    <a href="{{ url_for('main.reserves') }}" class="{% if request.endpoint == 'main.reserves' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Reserves
-                    </a>
-                    {% if current_user.is_authenticated and (current_user.super_admin or current_user.conductor) %}
-                    <a href="{{ url_for('main.viatges') }}" class="{% if request.endpoint == 'main.viatges' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Viatges
-                    </a>
-                    {% endif %}
-                    {% if current_user.is_authenticated and current_user.super_admin %}
-                    <!-- Rutas exclusivas para administradores -->
-                    <a href="{{ url_for('main.conductors') }}" class="{% if request.endpoint == 'main.conductors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Conductors
-                    </a>
-                    <a href="{{ url_for('main.vehicles') }}" class="{% if request.endpoint == 'main.vehicles' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Vehicles
-                    </a>
-                    <a href="{{ url_for('main.tipus_vehicles') }}" class="{% if request.endpoint == 'main.tipus_vehicles' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Tipus de Vehicles
-                    </a>
-                    <a href="{{ url_for('main.ubicacions') }}" class="{% if request.endpoint == 'main.ubicacions' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Ubicacions
-                    </a>
-                    <a href="{{ url_for('main.sectors') }}" class="{% if request.endpoint == 'main.sectors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Sectors
-                    </a>
-                    <a href="{{ url_for('main.parades') }}" class="{% if request.endpoint == 'main.parades' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Parades
-                    </a>
-                    <a href="{{ url_for('main.passatgers') }}" class="{% if request.endpoint == 'main.passatgers' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Passatgers
-                    </a>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Inici
+                        </a>
+                        <a href="{{ url_for('main.reserves') }}" class="{% if request.endpoint == 'main.reserves' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Reserves
+                        </a>
+                        {% if current_user.super_admin or current_user.conductor %}
+                            <a href="{{ url_for('main.viatges') }}" class="{% if request.endpoint == 'main.viatges' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Viatges
+                            </a>
+                        {% endif %}
+                        {% if current_user.super_admin %}
+                            <!-- Rutas exclusivas para administradores -->
+                            <a href="{{ url_for('main.conductors') }}" class="{% if request.endpoint == 'main.conductors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Conductors
+                            </a>
+                            <a href="{{ url_for('main.vehicles') }}" class="{% if request.endpoint == 'main.vehicles' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Vehicles
+                            </a>
+                            <a href="{{ url_for('main.tipus_vehicles') }}" class="{% if request.endpoint == 'main.tipus_vehicles' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Tipus de Vehicles
+                            </a>
+                            <a href="{{ url_for('main.ubicacions') }}" class="{% if request.endpoint == 'main.ubicacions' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Ubicacions
+                            </a>
+                            <a href="{{ url_for('main.sectors') }}" class="{% if request.endpoint == 'main.sectors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Sectors
+                            </a>
+                            <a href="{{ url_for('main.parades') }}" class="{% if request.endpoint == 'main.parades' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Parades
+                            </a>
+                            <a href="{{ url_for('main.passatgers') }}" class="{% if request.endpoint == 'main.passatgers' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Passatgers
+                            </a>
+                        {% endif %}
+                        <!-- Menú de usuario (desktop) -->
+                        <div class="hidden sm:flex sm:items-center absolute right-4">
+                            <div class="relative">
+                                <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleUserDropdown()">
+                                    <span class="sr-only">Open user menu</span>
+                                    <span class="text-gray-700 font-medium h-8 w-16">{{ current_user.nom_complet }}</span>
+                                    <img class="h-8 w-8 rounded-full"
+                                        src="{{ url_for('static', filename='images/avatars/' + (current_user.avatar if current_user.avatar else 'default.png')) }}"
+                                        onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                                        alt="{{ current_user.nom_complet }}">
+                                </button>
+                                <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+                                    <a href="{{ url_for('main.perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</a>
+                                    <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Tancar sessió</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <!-- Menú de usuario (desktop) -->
+                          <div class="flex space-x-8">
+                            <div class="space-x-4 sm:flex sm:items-center">
+                                <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 text-sm font-medium">Inicia sessió</a>
+                                <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
+                            </div>
+                        </div>
+
                     {% endif %}
                 </div>
             </div>
 
-            <!-- Menú de usuario (desktop) -->
-            <div class="hidden sm:flex sm:items-center absolute right-4">
-                {% if current_user.is_authenticated %}
-                <div class="relative">
-                    <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleUserDropdown()">
-                        <span class="sr-only">Open user menu</span>
-                        <span class="text-gray-700 font-medium h-8 w-16">{{ current_user.nom_complet }}</span>
-                        <img class="h-8 w-8 rounded-full"
-                            src="{{ url_for('static', filename='images/avatars/' + (current_user.avatar if current_user.avatar else 'default.png')) }}"
-                            onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
-                            alt="{{ current_user.nom_complet }}">
-                    </button>
-                    <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
-                        <a href="{{ url_for('main.perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</a>
-                        <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Tancar sessió</a>
-                    </div>
-                </div>
-                {% else %}
-                <div class="space-x-4">
-                    <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 text-sm font-medium">Inicia sessió</a>
-                    <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
-                </div>
-                {% endif %}
-            </div>
 
             <!-- Botón de menú móvil -->
             <div class="flex items-center sm:hidden">
