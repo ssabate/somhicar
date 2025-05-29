@@ -19,10 +19,24 @@ class ReservaController:
             has_passatger = True
             reserves = Reserva.query.filter_by(passatger_id=current_user.passatger.id).all()
 
-        # Fetch all available trips (viatges) with remaining seats
-        viatges = Viatge.query.filter(Viatge.places_restants > 0).all()
+        # Fetch all available trips (viatges) with remaining seats, except the ones created by the current user
+        viatges = Viatge.query.filter(Viatge.places_restants > 0).filter(~Viatge.conductor.has(usuari_id=current_user.id)).all()
 
         return render_template('reserves/index.html', reserves=reserves, viatges=viatges, has_passatger=has_passatger)
+
+
+    @staticmethod
+    def get_reserves_viatge(viatge_id):
+        # Initialize variables
+        reserves = []
+
+        # get the reservations of the trip
+        reserves = Reserva.query.filter_by(viatge_id=viatge_id).all()
+
+        # Fetch the trip (viatge) which reservations we're looking for
+        viatges = Viatge.query.filter_by(id=viatge_id).all()
+
+        return render_template('reserves/index.html', reserves=reserves, viatges=viatges, has_passatger=True)
 
     @staticmethod
     def create_reserva(viatge_id):

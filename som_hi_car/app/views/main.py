@@ -186,6 +186,14 @@ def reserves():
     from app.controllers.reserva_controller import ReservaController
     return ReservaController.get_reserves()
 
+@bp_main.route('/viatges/<int:viatge_id>/reserves/lista', methods=['GET', 'POST'])
+@login_required
+@admin_or_conductor_required
+def reserves_viatge(viatge_id):
+    from app.controllers.reserva_controller import ReservaController
+    return ReservaController.get_reserves_viatge(viatge_id)
+
+
 @bp_main.route('/viatges/<int:viatge_id>/reserves/nou', methods=['GET', 'POST'])
 def create_reserva(viatge_id):
     if not current_user.is_authenticated:

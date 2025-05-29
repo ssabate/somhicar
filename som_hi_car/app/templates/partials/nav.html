@@ -13,14 +13,14 @@
             <div class="hidden sm:flex sm:items-center sm:justify-center flex-1">
                 <div class="flex space-x-8">
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-3xl font-medium">
                             Inici
                         </a>
-                        <a href="{{ url_for('main.reserves') }}" class="{% if request.endpoint == 'main.reserves' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="{{ url_for('main.reserves') }}" class="{% if request.endpoint == 'main.reserves' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-3xl font-medium">
                             Reserves
                         </a>
                         {% if current_user.super_admin or current_user.conductor %}
-                            <a href="{{ url_for('main.viatges') }}" class="{% if request.endpoint == 'main.viatges' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            <a href="{{ url_for('main.viatges') }}" class="{% if request.endpoint == 'main.viatges' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-3xl font-medium">
                                 Viatges
                             </a>
                         {% endif %}
@@ -70,8 +70,8 @@
                         <!-- Menú de usuario (desktop) -->
                           <div class="flex space-x-8">
                             <div class="space-x-4 sm:flex sm:items-center">
-                                <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 text-sm font-medium">Inicia sessió</a>
-                                <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
+                                <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 text-3xl font-medium">Inicia sessió</a>
+                                <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-3xl font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
                             </div>
                         </div>
 
