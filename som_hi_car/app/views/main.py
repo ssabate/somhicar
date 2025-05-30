@@ -217,6 +217,11 @@ def delete_reserva(reserva_id,conductor):
     from app.controllers.reserva_controller import ReservaController
     return ReservaController.delete_reserva(reserva_id, conductor)
 
+@bp_main.route('/reserves/<int:reserva_id>/confirmar', methods=['POST'])
+def confirma_reserva(reserva_id):
+    from app.controllers.reserva_controller import ReservaController
+    return ReservaController.confirma_reserva(reserva_id)
+
 @bp_main.route('/reserves/<int:reserva_id>/eliminar_viatge', methods=['POST'])
 def delete_reserva_viatge(reserva_id):
     from app.controllers.reserva_controller import ReservaController

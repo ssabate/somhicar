@@ -43,6 +43,7 @@
                         %}</p>
                 </div>
             </div>
+            <p><strong>Vehicle:</strong> {{ viatge.vehicle.matricula }}</p>
             <p><strong>Hora:</strong> {{ viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</p>
             <p><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
             <p><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
@@ -87,6 +88,7 @@
                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Viatge</th>
                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada de recollida</th>
                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada d'arribada</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Confirmada?</th>
                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Accions</th>
                 </tr>
                 </thead>
@@ -98,6 +100,7 @@
                     </td>
                     <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_recollida.descripcio }}</td>
                     <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_arribada.descripcio }}</td>
+                    <td class="px-6 py-4 border-b text-sm text-gray-900 text-center"> {%if reserva.confirmada_conductor %} &#x2705; {% else %}  &#x274C; {% endif %}</td>
                     <td class="px-6 py-4 border-b text-sm">
                         <a href="{{ url_for('main.edit_reserva', reserva_id=reserva.id, conductor=0) }}"
                            class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">Editar</a>

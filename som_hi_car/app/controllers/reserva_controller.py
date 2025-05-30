@@ -111,25 +111,50 @@ class ReservaController:
             flash(f'Error en eliminar la reserva: {str(e)}', 'error')
             return redirect(url_for('main.reserves'))
 
-        @staticmethod
-        def delete_reserva_viatge(reserva_id):
-            reserva = Reserva.query.get(reserva_id)
-            if not reserva:
-                flash('Reserva no trobada.', 'error')
-                return redirect(url_for('main.reserves'))
+    @staticmethod
+    def confirma_reserva(reserva_id):
+        reserva = Reserva.query.get(reserva_id)
 
-            try:
-                # Increment the remaining places in the associated trip
-                viatge = reserva.viatge
-                if viatge:
-                    viatge.places_restants += 1
+        viatge = reserva.viatge
 
-                # Delete the reservation
-                db.session.delete(reserva)
-                db.session.commit()
-                flash('Reserva eliminada amb èxit!', 'success')
-                return redirect(url_for('main.reserves_viatge({viatge.id})'))
-            except Exception as e:
-                db.session.rollback()
-                flash(f'Error en eliminar la reserva: {str(e)}', 'error')
-                return redirect(url_for('main.reserves'))
+        if not reserva:
+            flash('Reserva no trobada.', 'error')
+            return redirect(url_for('main.reserves_viatge', viatge_id=viatge.id))
+
+        try:
+            # The driver has confirmed the reservation
+            reserva.confirmada_conductor = True
+
+            # Save the reservation
+            db.session.merge(reserva)
+            db.session.commit()
+            flash('Reserva confirmada amb èxit!', 'success')
+            return redirect(url_for('main.reserves_viatge', viatge_id=viatge.id))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error en confirmar la reserva: {str(e)}', 'error')
+            return redirect(url_for('main.reserves_viatge', viatge_id=viatge.id))
+
+
+    @staticmethod
+    def delete_reserva_viatge(reserva_id):
+        reserva = Reserva.query.get(reserva_id)
+        if not reserva:
+            flash('Reserva no trobada.', 'error')
+            return redirect(url_for('main.reserves'))
+
+        try:
+            # Increment the remaining places in the associated trip
+            viatge = reserva.viatge
+            if viatge:
+                viatge.places_restants += 1
+
+            # Delete the reservation
+            db.session.delete(reserva)
+            db.session.commit()
+            flash('Reserva eliminada amb èxit!', 'success')
+            return redirect(url_for('main.reserves_viatge({viatge.id})'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error en eliminar la reserva: {str(e)}', 'error')
+            return redirect(url_for('main.reserves'))

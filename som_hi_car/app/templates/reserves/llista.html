@@ -18,6 +18,7 @@
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada de recollida</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada d'arribada</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Passatger/a</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Confirmada?</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Accions</th>
                         </tr>
                     </thead>
@@ -29,8 +30,18 @@
                             <td class="px-6 py-4 border-b text-sm text-gray-900"><img class="h-16 w-16 rounded-full object-cover border-2 border-blue-500"
                                  src="{{ url_for('static', filename='images/avatars/' + (reserva.passatger.usuari.avatar if reserva.passatger.usuari.avatar else 'default.png')) }}"
                                  onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
-                                 alt="{{ reserva.passatger.usuari.nom_complet }}">{{ reserva.passatger.usuari.nom_complet }}</td>
+                                 alt="{{ reserva.passatger.usuari.nom_complet }}">{{ reserva.passatger.usuari.nom_complet }}
+                                <p>{{ reserva.passatger.usuari.email }}</p>
+                                <p>{{ reserva.passatger.usuari.telefon_mobil }}{%if reserva.passatger.usuari.telefon_fix %} - {{ reserva.passatger.usuari.telefon_fix }} {% endif
+                        %}</p></td>
+                            <td class="px-6 py-4 border-b text-sm text-gray-900 text-center">{%if reserva.confirmada_conductor %} &#x2705; {% else %}  &#x274C; {% endif %}</td>
                             <td class="px-6 py-4 border-b text-sm">
+                                 <form method="POST" action="{{ url_for('main.confirma_reserva', reserva_id=reserva.id) }}" class="inline">
+                                <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-green-500 hover:bg-green-600 transform transition hover:-translate-y-1 shadow-md"
+                                     {% if reserva.confirmada_conductor %} style="display: none;" {% endif %}>
+                                    Confirmar
+                                </button>
+                            </form>
                                 <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=1) }}" class="inline">
                                     <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">Eliminar</button>
                                 </form>
