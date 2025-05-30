@@ -26,7 +26,10 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_recollida.descripcio }}</td>
                             <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_arribada.descripcio }}</td>
-                            <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.passatger.usuari.nom_complet }}</td>
+                            <td class="px-6 py-4 border-b text-sm text-gray-900"><img class="h-16 w-16 rounded-full object-cover border-2 border-blue-500"
+                                 src="{{ url_for('static', filename='images/avatars/' + (reserva.passatger.usuari.avatar if reserva.passatger.usuari.avatar else 'default.png')) }}"
+                                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                                 alt="{{ reserva.passatger.usuari.nom_complet }}">{{ reserva.passatger.usuari.nom_complet }}</td>
                             <td class="px-6 py-4 border-b text-sm">
                                 <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=1) }}" class="inline">
                                     <button type="submit" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">Eliminar</button>

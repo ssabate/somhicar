@@ -10,7 +10,10 @@ bp_main = Blueprint('main', __name__)
 
 @bp_main.route('/')
 def home():
-    return render_template('home.html')
+    # Fetch the trips (viatges)
+    viatges = Viatge.query.all()
+    return render_template('home.html', viatges=viatges)
+
 
 @bp_main.route('/viatges', methods=['GET'])
 @login_required
@@ -182,6 +185,7 @@ def delete_sector(sector_id):
     return SectorController.delete_sector(sector_id)
 
 @bp_main.route('/reserves', methods=['GET'])
+@login_required
 def reserves():
     from app.controllers.reserva_controller import ReservaController
     return ReservaController.get_reserves()
