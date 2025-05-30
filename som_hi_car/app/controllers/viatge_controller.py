@@ -19,6 +19,7 @@ class ViatgeController:
         else:
             viatges = Viatge.query.filter(Viatge.conductor.has(usuari_id=current_user.id)).order_by(Viatge.data_hora_inici.desc()).all()
 
+        # Filter trips based on 'realitzat' status: 0 (all), 1 (not realized), 2 (realized)
         if realitzat!=0:
             if realitzat==1:
                 viatges = [viatge for viatge in viatges if viatge.realitzat == False]
@@ -27,7 +28,7 @@ class ViatgeController:
 
         parades = Parada.query.all()
         logger.debug(f"Found {len(viatges)} trips")
-        return render_template('Viatges.html', viatges=viatges, parades=parades)
+        return render_template('Viatges.html', viatges=viatges, parades=parades, realitzat=realitzat)
 
 
 

@@ -35,10 +35,11 @@
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-bold text-gray-900">Llista de viatges</h2>
+                    Filtrar per:
                     <select class="border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" onchange="handleSelectChange(this.value)">
-                        <option>Filtrar per: Tots</option>
-                        <option>Pendents</option>
-                        <option>Realitzats</option>
+                        <option selected="{%if realitzat==0 %}true{% else %}false{% endif% }">Tots</option>
+                        <option selected="{%if realitzat==1 %}true{% else %}false{% endif% }">Pendents</option>
+                        <option selected="{%if realitzat==2 %}true{% else %}false{% endif% }">Realitzats</option>
                     </select>
                     <script>
                         function handleSelectChange(value) {
