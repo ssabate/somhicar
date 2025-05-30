@@ -30,15 +30,25 @@
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-bold text-gray-900">Llista de viatges</h2>
-                    <select class="border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option>Filtrar per: Tots</option>
-                        <option>Pendent</option>
-                        <option>Completat</option>
+                    <select id="filter-trips" class="border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                     <option value="all">Filtrar per: Tots</option>
+    <option value="pending">Pendent</option>
+    <option value="completed">Realitzat</option>
                     </select>
                 </div>
                 {% if viatges %}
                 <div class="space-y-6">
-                    {% for viatge in viatges %}
+
+
+        <script>
+    document.getElementById('filter-trips').addEventListener('change', function() {
+    const filterValue = this.value;
+    const url = new URL(window.location.href);
+    url.searchParams.set('filter', filterValue);
+    window.location.href = url.toString();  // Redirige con el filtro aplicado
+});
+</script>
+                    {% for viatge in viatges if !viatge.realitzat %}
                     <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-6 transform transition hover:scale-105 hover:shadow-lg border-l-4 {{ 'border-green-500' if viatge.realitzat else 'border-orange-500' }}">
                         <div class="flex justify-between items-center">
                             <p class="text-lg font-medium text-gray-900">
@@ -62,6 +72,7 @@
                             <li class="flex items-center"><i class="fas fa-users text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Places: {{ viatge.places_restants }}/{{ viatge.places_inicials }}</li>
                             <li class="flex items-center"><i class="fas fa-check-circle text-{{ 'green' if viatge.realitzat else 'orange' }}-500 mr-2"></i> Estat: {{ 'Completat' if viatge.realitzat else 'Pendent' }}</li>
                         </ul>
+                        <div class="trip-card bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-6 transform transition hover:scale-105 hover:shadow-lg border-l-4 {{ 'border-green-500' if viatge.realitzat else 'border-orange-500' }}" data-completed="{{ viatge.realitzat }}">
                     </div>
                     {% endfor %}
                 </div>

@@ -15,7 +15,7 @@ class ViatgeController:
     def get_viatges():
         logger.debug(f"Fetching trips for user ID: {current_user.id}, super_admin: {current_user.super_admin}")
         if current_user.super_admin:
-            viatges = Viatge.query.all()
+            viatges = Viatge.query.all().sort(hora_inici=Viatge.data_hora_inici.desc())
         else:
             viatges = Viatge.query.filter(Viatge.conductor.has(usuari_id=current_user.id)).all()
         parades = Parada.query.all()
@@ -143,3 +143,15 @@ class ViatgeController:
             logger.error(f"Error deleting trip ID: {viatge_id}: {str(e)}")
             flash(f'Error en eliminar el viatge: {str(e)}', 'error')
             return redirect(url_for('main.viatges'))
+
+
+    @staticmethod
+    def update_viatges_realitzats():
+        now = datetime.now()
+        # Actualizar los viatges que ya han sido realizados
+        viatges = Viatge.query.filter(Viatge.data_hora_inici <= now, Viatge.realitzat == False).all()
+        for viatge in viatges:
+            viatge.realitzat = True
+        db.session.commit()
+        logger.debug(f"{len(viatges)} viatges actualizados como realizados.")
+

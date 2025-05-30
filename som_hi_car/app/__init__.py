@@ -56,9 +56,22 @@ def create_app():
     with app.app_context():
         try:
             db.create_all()
-            app.logger.info("Taules d'Oracle inicialitzades correctament")
+            app.logger.info("Taules inicialitzades correctament")
             inserta_dades_base()
             app.logger.info("Dades base inicialitzades correctament")
         except Exception as e:
             app.logger.error(f"Error al crear les taules: {e}")
+
+    # Configurar el scheduler que actualiza el viatges realitzats segons la data
+    with app.app_context():
+        try:
+            from apscheduler.schedulers.background import BackgroundScheduler
+            scheduler = BackgroundScheduler()
+            from app.controllers.viatge_controller import ViatgeController
+            scheduler.add_job(ViatgeController.update_viatges_realitzats(),'interval', minutes=1)
+            scheduler.start()
+        except Exception as e:
+            app.logger.error(f"Error al procés en segon pla: {e}")
+
+
     return app
