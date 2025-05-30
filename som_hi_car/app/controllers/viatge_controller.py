@@ -12,15 +12,24 @@ logger = logging.getLogger(__name__)
 class ViatgeController:
     @staticmethod
     @login_required
-    def get_viatges():
+    def get_viatges(realitzat):
         logger.debug(f"Fetching trips for user ID: {current_user.id}, super_admin: {current_user.super_admin}")
         if current_user.super_admin:
-            viatges = Viatge.query.all().sort(hora_inici=Viatge.data_hora_inici.desc())
+            viatges = Viatge.query.order_by(Viatge.data_hora_inici.desc()).all()
         else:
-            viatges = Viatge.query.filter(Viatge.conductor.has(usuari_id=current_user.id)).all()
+            viatges = Viatge.query.filter(Viatge.conductor.has(usuari_id=current_user.id)).order_by(Viatge.data_hora_inici.desc()).all()
+
+        if realitzat!=0:
+            if realitzat==1:
+                viatges = [viatge for viatge in viatges if viatge.realitzat == False]
+            else:
+                viatges = [viatge for viatge in viatges if viatge.realitzat == True]
+
         parades = Parada.query.all()
         logger.debug(f"Found {len(viatges)} trips")
         return render_template('Viatges.html', viatges=viatges, parades=parades)
+
+
 
     @staticmethod
     @login_required

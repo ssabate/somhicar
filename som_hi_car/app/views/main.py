@@ -11,7 +11,7 @@ bp_main = Blueprint('main', __name__)
 @bp_main.route('/')
 def home():
     # Fetch the trips (viatges)
-    viatges = Viatge.query.all()
+    viatges = Viatge.query.filter_by(realitzat=False).all()
     return render_template('home.html', viatges=viatges)
 
 
@@ -19,7 +19,19 @@ def home():
 @login_required
 @admin_or_conductor_required
 def viatges():
-    return ViatgeController.get_viatges()
+    return ViatgeController.get_viatges(0)
+
+@bp_main.route('/viatgesP', methods=['GET'])
+@login_required
+@admin_or_conductor_required
+def viatges_pendents():
+    return ViatgeController.get_viatges(1)
+
+@bp_main.route('/viatgesR', methods=['GET'])
+@login_required
+@admin_or_conductor_required
+def viatges_realitzats():
+    return ViatgeController.get_viatges(2)
 
 @bp_main.route('/viatges/nou', methods=['GET', 'POST'])
 @login_required
