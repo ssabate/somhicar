@@ -1,3 +1,4 @@
+APScheduler==3.11.0
 blinker==1.9.0
 cffi==1.17.1
 click==8.2.1
@@ -18,5 +19,6 @@ psycopg2-binary==2.9.10
 pycparser==2.22
 SQLAlchemy==2.0.41
 typing_extensions==4.13.2
+tzlocal==5.3.1
 Werkzeug==3.0.6
 WTForms==3.2.1

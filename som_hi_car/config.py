@@ -2,8 +2,6 @@ import os
 import secrets
 
 class Config:
-    #SQLALCHEMY_DATABASE_URI = 'oracle+oracledb://SOMHI:SOMHI@localhost:1521/xe'
-    #SQLALCHEMY_DATABASE_URI = 'oracle+cx_oracle://SOMHI:somhi@localhost:1521/xe'
     #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://somhicar:kSUjkeAgemEvXBVkPwMXKCi5OdBskbPT@dpg-d0pluvumcj7s73ea9jpg-a/somhicar'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://somhicar:somhicar@localhost:5434/somhicar'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
