@@ -5,7 +5,7 @@
             <div class="flex-shrink-0 flex items-center absolute left-4">
                 <a href="{{ url_for('main.home') }}" class="flex items-center space-x-4">
                     <img src="{{ url_for('static', filename='logo.png') }}" alt="Som-hi Car Logo" class="h-10 w-auto">
-                    <span class="text-xl font-bold text-gray-800">Som-Hi Car</span>
+                    <span class="text-xl font-bold md:text-3xl text-gray-800">Som-Hi Car</span>
                 </a>
             </div>
 
@@ -53,15 +53,15 @@
                             <div class="relative">
                                 <button type="button" class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onclick="toggleUserDropdown()">
                                     <span class="sr-only">Open user menu</span>
-                                    <span class="text-gray-700 font-medium h-8 w-16">{{ current_user.nom_complet }}</span>
+                                    <span class="text-gray-700 md:text-2xl font-medium h-16 w-36">{{ current_user.nom_complet }}</span>
                                     <img class="h-8 w-8 rounded-full"
                                         src="{{ url_for('static', filename='images/avatars/' + (current_user.avatar if current_user.avatar else 'default.png')) }}"
                                         onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
                                         alt="{{ current_user.nom_complet }}">
                                 </button>
                                 <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
-                                    <a href="{{ url_for('main.perfil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</a>
-                                    <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Tancar sessió</a>
+                                    <a href="{{ url_for('main.perfil') }}" class="block px-4 py-2 md:text-4xl text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Perfil</a>
+                                    <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 md:text-4xl text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Tancar sessió</a>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +95,8 @@
     <!-- Menú móvil -->
     <div class="sm:hidden hidden" id="mobile-menu">
         <div class="pt-2 pb-3 space-y-1">
-            <a href="{{ url_for('main.home') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Inici</a>
-            <a href="{{ url_for('main.reserves') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Reserves</a>
+            <a href="{{ url_for('main.home') }}" class="block px-3 py-2 md:text-4xl text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Inici</a>
+            <a href="{{ url_for('main.reserves') }}" class="block px-3 py-2 md:text-4xl text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Reserves</a>
             {% if current_user.is_authenticated and (current_user.super_admin or current_user.conductor) %}
             <a href="{{ url_for('main.viatges') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Viatges</a>
             <a href="{{ url_for('main.create_viatge') }}" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">Crear Viatge</a>
