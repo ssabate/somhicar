@@ -68,7 +68,8 @@ def create_app():
             from apscheduler.schedulers.background import BackgroundScheduler
             scheduler = BackgroundScheduler()
             from app.controllers.viatge_controller import ViatgeController
-            scheduler.add_job(ViatgeController.update_viatges_realitzats(),'interval', minutes=1)
+            viatge_controller = ViatgeController()
+            scheduler.add_job(viatgeController.update_viatges_realitzats(),'interval', minutes=1)
             scheduler.start()
         except Exception as e:
             app.logger.error(f"Error al procés en segon pla: {e}")
