@@ -113,4 +113,5 @@ class AuthController:
     def logout():
         logout_user()
         flash('Has tancat sessió amb èxit.', 'success')
-        return redirect(url_for('auth.login'))
+        #return redirect(url_for('auth.login'))
+        return redirect(url_for('main.home'))

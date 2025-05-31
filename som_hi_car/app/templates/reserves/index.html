@@ -12,10 +12,10 @@
     </div>
     <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center relative z-10">
         <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl transform transition duration-500 hover:scale-105">
-            Les teves reserves
+            Les teues reserves
         </h1>
-        <p class="mt-6 text-xl text-blue-100 max-w-3xl mx-auto">
-            Consulta i gestiona les teves reserves, o apunta't a viatges disponibles.
+        <p class="mt-6 md:text-2xl text-xl text-blue-100 max-w-3xl mx-auto">
+            Consulta i gestiona les teues reserves, o apunta't a viatges disponibles.
             {% if not current_user.is_authenticated %}
             <a href="{{ url_for('auth.login') }}" class="underline hover:text-white">Inicia sessió</a> per reservar.
             {% endif %}
@@ -24,106 +24,135 @@
 </div>
 
 <!-- Content Section -->
-<div class="py-16 bg-gradient-to-b from-white to-gray-50">
+<div class="py-16 bg-gradient-to-b from-gray-100 to-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Llista de rutes disponibles</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4 md:text-5xl">Llista de viatges disponibles</h2>
         {% if viatges %}
-        {% for viatge in viatges %}
-        <div class="mb-4 bg-white border border-gray-200 p-6 rounded-xl shadow-md transform transition hover:scale-105 hover:shadow-lg">
-            <div class="flex items-center space-x-4 mb-6">
-                <strong>Conductor:</strong><img class="h-16 w-16 rounded-full object-cover border-2 border-blue-500"
-                                                src="{{ url_for('static', filename='images/avatars/' + (viatge.conductor.usuari.avatar if viatge.conductor.usuari.avatar else 'default.png')) }}"
-                                                onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
-                                                alt="{{ viatge.conductor.usuari.nom_complet }}">
-                <div>
-                    <p class="text-xl font-medium text-gray-900">{{ viatge.conductor.usuari.nom_complet }}</p>
-                    <p class="text-sm text-gray-500">{{ viatge.conductor.usuari.email }}</p>
-                    <p class="text-sm text-gray-500">{{ viatge.conductor.usuari.telefon_mobil }}
-                        {%if viatge.conductor.usuari.telefon_fix %} - {{ viatge.conductor.usuari.telefon_fix }} {% endif
-                        %}</p>
-                </div>
-            </div>
-            <p><strong>Vehicle:</strong> {{ viatge.vehicle.matricula }}</p>
-            <p><strong>Hora:</strong> {{ viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</p>
-            <p><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
-            <p><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
-            <p><strong>Places disponibles:</strong> {{ viatge.places_restants }}</p>
-            {% if current_user.is_authenticated and has_passatger %}
-            {% set is_reserved = viatge.reserves | selectattr('passatger_id', 'equalto', current_user.passatger.id) |
-            list %}
-            {% if is_reserved %}
-            <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=is_reserved[0].id, conductor=0) }}"
-                  class="inline">
-                <button type="submit"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
-                    Desapuntar-se
-                </button>
-            </form>
-            {% else %}
-            <a href="{{ url_for('main.create_reserva', viatge_id=viatge.id) }}"
-               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
-                Crear reserva
-            </a>
-            {% endif %}
-            {% else %}
-            <a href="{{ url_for('auth.login') }}"
-               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
-                Inicia sessió per reservar
-            </a>
-            {% endif %}
-        </div>
-        {% endfor %}
-        {% else %}
-        <div class="bg-white rounded-xl shadow-md p-6 text-center">
-            <p class="text-sm text-gray-500">No hi ha viatges disponibles actualment.</p>
-        </div>
-        {% endif %}
+            {% for viatge in viatges %}
+                <div class="mb-4 border border-gray-200 p-6 rounded-xl shadow-md transform transition hover:scale-105 hover:shadow-lg bg-gray-300 {% if loop.index > 2 %}hidden extra-viatge{% endif %}">
+                    <div class="flex items-center space-x-4 mb-6 md:text-4xl ">
+                        <strong>Conductor:</strong><img class="h-full w-16 rounded-full object-cover border-2 border-blue-500"
+                                                        src="{{ url_for('static', filename='images/avatars/' + (viatge.conductor.usuari.avatar if viatge.conductor.usuari.avatar else 'default.png')) }}"
+                                                        onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                                                        alt="{{ viatge.conductor.usuari.nom_complet }}">
 
-        {% if current_user.is_authenticated and has_passatger %}
-        <h2 class="text-2xl font-bold text-gray-900 mb-4 mt-8">Les meves reserves</h2>
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
-            <table class="min-w-full border border-gray-200">
-                <thead>
-                <tr class="bg-gray-50">
-                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Viatge</th>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada de recollida</th>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada d'arribada</th>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Confirmada?</th>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Accions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for reserva in reserves %}
-                <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.viatge.data_hora_inici.strftime('%d
-                        %B %Y, %H:%M') }}
-                    </td>
-                    <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_recollida.descripcio }}</td>
-                    <td class="px-6 py-4 border-b text-sm text-gray-900">{{ reserva.parada_arribada.descripcio }}</td>
-                    <td class="px-6 py-4 border-b text-sm text-gray-900 text-center"> {%if reserva.confirmada_conductor %} &#x2705; {% else %}  &#x274C; {% endif %}</td>
-                    <td class="px-6 py-4 border-b text-sm">
-                        <a href="{{ url_for('main.edit_reserva', reserva_id=reserva.id, conductor=0) }}"
-                           class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">Editar</a>
-                        <form method="POST"
-                              action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=0) }}"
-                              class="inline">
-                            <button type="submit"
-                                    class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                        <div>
+                            <p class="text-xl font-medium text-gray-900 md:text-4xl">{{ viatge.conductor.usuari.nom_complet }}</p>
+                            <p class="text-sm text-gray-500 md:text-3xl">{{ viatge.conductor.usuari.email }}</p>
+                            <p class="text-sm text-gray-500 md:text-3xl">{{ viatge.conductor.usuari.telefon_mobil }}
+                                {%if viatge.conductor.usuari.telefon_fix %} - {{ viatge.conductor.usuari.telefon_fix }} {% endif
+                                %}</p>
+                        </div>
+                    </div>
+                    <div class="md:text-4xl">
+                    <p><strong>Vehicle:</strong> {{ viatge.vehicle.marca }} {{ viatge.vehicle.model }} {{ viatge.vehicle.color }} {{ viatge.vehicle.matricula }}</p>
+                    <p><strong>Hora:</strong> {{ viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</p>
+                    <p><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
+                    <p><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
+                    <p><strong>Places disponibles:</strong> {{ viatge.places_restants }}</p>
+                    </div>
+                        {% if current_user.is_authenticated and has_passatger %}
+                    {% set is_reserved = viatge.reserves | selectattr('passatger_id', 'equalto', current_user.passatger.id) |
+                    list %}
+                    {% if is_reserved %}
+                    <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=is_reserved[0].id, conductor=0) }}"
+                          class="inline">
+                        <button type="submit"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm md:text-4xl font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md mt-4">
+                            Desapuntar-se
+                        </button>
+                    </form>
+                    {% else %}
+                    <a href="{{ url_for('main.create_reserva', viatge_id=viatge.id) }}"
+                       class="inline-flex items-center px-4 py-2 border border-transparent text-sm md:text-4xl mt-4 font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                        Crear reserva
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <a href="{{ url_for('auth.login') }}"
+                       class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                        Inicia sessió per reservar
+                    </a>
+                    {% endif %}
+                </div>
                 {% endfor %}
-                {% if not reserves %}
-                <tr>
-                    <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">No tens reserves actualment.
-                    </td>
-                </tr>
-                {% endif %}
-                </tbody>
-            </table>
-        </div>
+                <div class="mt-6 flex justify-center">
+                    <button id="load-more-btn" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base  md:text-4xl font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transform transition hover:-translate-y-1 shadow-md">
+                        Carrega més viatges
+                    </button>
+                </div>
+                <script>
+                    document.getElementById('load-more-btn').addEventListener('click', function() {
+                        const extraViatges = document.querySelectorAll('.extra-viatge');
+                        extraViatges.forEach(viatge => viatge.classList.remove('hidden'));
+                        this.style.display = 'none'; // Ocultar el botón después de cargar los viajes
+                    });
+                </script>
+
+        {% else %}
+                <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                    <p class="text-sm md:text-4xl text-gray-500">No hi ha viatges disponibles actualment.</p>
+                </div>
+            {% endif %}
+
+            {% if current_user.is_authenticated and has_passatger %}
+                <h2 class="text-2xl font-bold md:text-5xl text-gray-900 mb-4 mt-8">Les meues reserves</h2>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
+                    <table class="min-w-full border border-gray-200">
+                        <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Viatge</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada de recollida</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Parada d'arribada</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Confirmada?</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Accions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reserva in reserves %}
+                        <div class="mb-4 border border-gray-200 p-6 rounded-xl shadow-md transform transition hover:scale-105 hover:shadow-lg {% if loop.index % 2 == 0 %}bg-blue-100{% else %}bg-blue-300{% endif %}">
+                            <div class="flex items-center space-x-4 mb-6 md:text-4xl">
+                                <strong>Conductor:</strong>
+                                <img class="h-full w-16 rounded-full object-cover border-2 border-blue-500"
+                                     src="{{ url_for('static', filename='images/avatars/' + (reserva.viatge.conductor.usuari.avatar if reserva.viatge.conductor.usuari.avatar else 'default.png')) }}"
+                                     onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
+                                     alt="{{ reserva.viatge.conductor.usuari.nom_complet }}">
+                                <div>
+                                    <p class="text-xl font-medium text-gray-900 md:text-4xl">{{ reserva.viatge.conductor.usuari.nom_complet }}</p>
+                                    <p class="text-sm text-gray-500 md:text-3xl">{{ reserva.viatge.conductor.usuari.email }}</p>
+                                    <p class="text-sm text-gray-500 md:text-3xl">{{ reserva.viatge.conductor.usuari.telefon_mobil }}
+                                        {% if reserva.viatge.conductor.usuari.telefon_fix %} - {{ reserva.viatge.conductor.usuari.telefon_fix }} {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="md:text-4xl">
+                                <p><strong>Vehicle:</strong> {{ reserva.viatge.vehicle.marca }} {{ reserva.viatge.vehicle.model }} {{ reserva.viatge.vehicle.color }} {{ reserva.viatge.vehicle.matricula }}</p>
+                                <p><strong>Hora:</strong> {{ reserva.viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</p>
+                                <p><strong>Parada de recollida:</strong> {{ reserva.parada_recollida.descripcio }}</p>
+                                <p><strong>Parada d'arribada:</strong> {{ reserva.parada_arribada.descripcio }}</p>
+                                <p><strong>Confirmada:</strong> {% if reserva.confirmada_conductor %} Sí {% else %} No {% endif %}</p>
+                            </div>
+                            <div class="mt-4">
+                                <a href="{{ url_for('main.edit_reserva', reserva_id=reserva.id, conductor=0) }}"
+                                   class="inline-flex items-center px-3 py-1 border border-transparent text-sm  md:text-4xl font-medium rounded-full text-white bg-yellow-500 hover:bg-yellow-600 transform transition hover:-translate-y-1 shadow-md">Editar</a>
+                                <form method="POST" action="{{ url_for('main.delete_reserva', reserva_id=reserva.id, conductor=0) }}" class="inline">
+                                    <button type="submit"
+                                            class="inline-flex items-center px-3 py-1 border border-transparent  md:text-4xl text-sm font-medium rounded-full text-white bg-red-500 hover:bg-red-600 transform transition hover:-translate-y-1 shadow-md">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if not reserves %}
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">No tens reserves actualment.
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 </div>
