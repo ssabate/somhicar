@@ -17,10 +17,10 @@ class ReservaController:
         # Check if user is authenticated and has a passatger role
         if current_user.is_authenticated and hasattr(current_user, 'passatger') and current_user.passatger:
             has_passatger = True
-            reserves = Reserva.query.filter_by(passatger_id=current_user.passatger.id).all()
+            reserves = Reserva.query.filter(Reserva.passatger_id == current_user.passatger.id, Reserva.viatge.has(realitzat=False)).all()
 
         # Fetch all available trips (viatges) with remaining seats, except the ones created by the current user
-        viatges = Viatge.query.filter(Viatge.places_restants > 0).filter(~Viatge.conductor.has(usuari_id=current_user.id)).all()
+        viatges = Viatge.query.filter(Viatge.places_restants > 0, ~Viatge.realitzat).filter(~Viatge.conductor.has(usuari_id=current_user.id)).all()
 
         return render_template('reserves/index.html', reserves=reserves, viatges=viatges, has_passatger=has_passatger)
 

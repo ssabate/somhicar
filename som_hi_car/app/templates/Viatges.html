@@ -37,9 +37,9 @@
                     <h2 class="text-xl font-bold text-gray-900">Llista de viatges</h2>
                     Filtrar per:
                     <select class="border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" onchange="handleSelectChange(this.value)">
-                        <option selected="{%if realitzat==0 %}true{% else %}false{% endif% }">Tots</option>
-                        <option selected="{%if realitzat==1 %}true{% else %}false{% endif% }">Pendents</option>
-                        <option selected="{%if realitzat==2 %}true{% else %}false{% endif% }">Realitzats</option>
+                        <option {% if realitzat==0 %}selected="true"{% endif %}>Tots</option>
+                        <option {% if realitzat==1 %}selected="true"{% endif %}>Pendents</option>
+                        <option  {% if realitzat==2 %}selected="true"{% endif %}>Realitzats</option>
                     </select>
                     <script>
                         function handleSelectChange(value) {
