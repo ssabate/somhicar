@@ -119,6 +119,7 @@ class Viatge(db.Model):
     confirmat = Column(Boolean, default=False)
     realitzat = Column(Boolean, default=False)
     import_ = Column(Float, default=0.0)
+    observacions = Column(String(500))
 
     vehicle = relationship("Vehicle")
     conductor = relationship("Conductor")

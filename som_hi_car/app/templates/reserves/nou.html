@@ -11,6 +11,7 @@
         <p><strong>Parada Recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
         <p><strong>Parada Arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
         <p><strong>Places Disponibles:</strong> {{ viatge.places_restants }}</p>
+        {% if viatge.observacions %}<p><strong>Observacions:</strong> {{ viatge.observacions }}</p>{% endif %}
     </div>
     <form method="POST" action="{{ url_for('main.create_reserva', viatge_id=viatge.id) }}">
         <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Acceptar Viatge</button>

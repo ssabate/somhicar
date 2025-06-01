@@ -1,3 +1,27 @@
 TODO LIST
 
+Mirar diseño responsive de la web
+
+DONE LIST
 1. Poner observaciones en los viajes y si las hay marcarlo en la lista de viajes para que el usuario las pueda leer
+2. Poner un botón de "ver observaciones" en la lista de viajes
+3. Comprobar que el nombre de usuario no se puede repetir en el perfil--> en el registro se comprueba. El nombre del perfil no es el de usuario
+
+Para hacer las migraciones después de modificar el modelo he tenido que hacer lo siguiente:
+```bash
+
+instalar Flask-Migrate con el comando pip install Flask-Migrate
+```
+En el archivo __init__.py dentro del método create_app() añadir las siguientes líneas:
+
+# Configurar les migracions
+    from flask_migrate import Migrate
+    migrate = Migrate(app, db)
+
+```python
+```bash
+export FLASK_APP=app.py
+flask db init
+flask db migrate -m "Initial migration."
+flask db upgrade
+```

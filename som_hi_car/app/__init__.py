@@ -24,6 +24,9 @@ def create_app():
     app.logger.debug(f"db type after init_app: {type(db)}")  # Debug
     app.logger.debug(f"db.session available: {hasattr(db, 'session')}")  # Debug
 
+    # Configurar les migracions
+    from flask_migrate import Migrate
+    migrate = Migrate(app, db)
 
     # Configurar Flask-Login
     login_manager = LoginManager()

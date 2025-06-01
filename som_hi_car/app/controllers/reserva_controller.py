@@ -19,8 +19,8 @@ class ReservaController:
             has_passatger = True
             reserves = Reserva.query.filter(Reserva.passatger_id == current_user.passatger.id, Reserva.viatge.has(realitzat=False)).all()
 
-        # Fetch all available trips (viatges) with remaining seats, except the ones created by the current user
-        viatges = Viatge.query.filter(Viatge.places_restants > 0, ~Viatge.realitzat).filter(~Viatge.conductor.has(usuari_id=current_user.id)).all()
+        # Fetch all available trips (viatges) with remaining seats, except the ones created by the current user, ordered by start date descending
+        viatges = Viatge.query.filter(Viatge.places_restants > 0, ~Viatge.realitzat).filter(~Viatge.conductor.has(usuari_id=current_user.id)).order_by(Viatge.data_hora_inici.desc()).all()
 
         return render_template('reserves/index.html', reserves=reserves, viatges=viatges, has_passatger=has_passatger)
 

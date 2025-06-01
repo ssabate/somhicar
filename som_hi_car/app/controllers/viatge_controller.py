@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from datetime import datetime
 from app.models import Viatge, Vehicle, Conductor, Parada
 from database.db import db
+from datetime import datetime
 import logging
 
 # Configure logging
@@ -15,7 +16,7 @@ class ViatgeController:
     def get_viatges(realitzat):
         logger.debug(f"Fetching trips for user ID: {current_user.id}, super_admin: {current_user.super_admin}")
         if current_user.super_admin:
-            viatges = Viatge.query.order_by(Viatge.data_hora_inici.desc()).all()
+            viatges = Viatge.query.all()
         else:
             viatges = Viatge.query.filter(Viatge.conductor.has(usuari_id=current_user.id)).order_by(Viatge.data_hora_inici.desc()).all()
 
@@ -55,7 +56,8 @@ class ViatgeController:
                     sentit=data['sentit'],
                     confirmat=False,
                     realitzat=False,
-                    import_=float(data['import_'])
+                    import_=float(data['import_']),
+                    observacions=data['observacions']
                 )
                 # Verify vehicle belongs to conductor
                 vehicle = Vehicle.query.get(nou_viatge.vehicle_id)
@@ -77,7 +79,7 @@ class ViatgeController:
 
         vehicles = Vehicle.query.join(Conductor.vehicles).filter(Conductor.usuari_id == current_user.id).all()
         parades = Parada.query.all()
-        return render_template('viatges/nou.html', vehicles=vehicles, conductors=[current_user.conductor], parades=parades)
+        return render_template('viatges/nou.html', now=datetime.now, vehicles=vehicles, conductors=[current_user.conductor], parades=parades)
 
     @staticmethod
     @login_required
