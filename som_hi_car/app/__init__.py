@@ -24,8 +24,7 @@ def create_app():
     app.logger.debug(f"db type after init_app: {type(db)}")  # Debug
     app.logger.debug(f"db.session available: {hasattr(db, 'session')}")  # Debug
 
-    # Configurar les migracions
-    from flask_migrate import Migrate
+    from flask_migrate import Migrate, upgrade
     migrate = Migrate(app, db)
 
     # Configurar Flask-Login
@@ -58,6 +57,7 @@ def create_app():
     # Crear taules
     with app.app_context():
         try:
+            upgrade()
             db.create_all()
             app.logger.info("Taules inicialitzades correctament")
             inserta_dades_base()
