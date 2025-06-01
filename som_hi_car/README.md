@@ -1,6 +1,6 @@
 TODO LIST
-
-Mirar diseño responsive de la web
+1. Mirar edición de viaje que aparezcan observaciones
+2. Mirar diseño responsive de la web
 
 DONE LIST
 1. Poner observaciones en los viajes y si las hay marcarlo en la lista de viajes para que el usuario las pueda leer
