@@ -27,21 +27,21 @@
 
                 <!-- Trips List -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
-                    <div class="p-6">
+                    <div class="p-66">
                         <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-xl font-bold text-gray-900 md:text-5xl">Llista de viatges publicats</h2>
+                            <h2 class="text-5xl font-bold text-gray-900 xl:text-3xl">Llista de viatges publicats</h2>
                         </div>
                         {% if viatges %}
                         <div class="space-y-6">
                             {% for viatge in viatges %}
                                 <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-6 transform transition hover:scale-105 hover:shadow-lg border-l-4 {{ 'border-green-500' if viatge.realitzat else 'border-orange-500' }} {% if loop.index > 2 %}hidden extra-viatge{% endif %}">
                                     <div class="flex justify-between items-center">
-                                        <p class="text-lg md:text-4xl font-medium text-gray-900">
+                                        <p class="text-4xl xl:text-3xl font-medium text-gray-900">
                                             {{ viatge.parada_recollida.ubicacio.nom }} ↔ {{ viatge.parada_arribada.ubicacio.nom }}
                                         </p>
-                                        <span class="px-3 py-1 md:text-2xl bg-{{ 'green' if viatge.realitzat else 'orange' }}-100 text-{{ 'green' if viatge.realitzat else 'orange' }}-800 text-sm font-medium rounded-full">
+                                        <!--<span class="px-3 py-1 md:text-2xl bg-{{ 'green' if viatge.realitzat else 'orange' }}-100 text-{{ 'green' if viatge.realitzat else 'orange' }}-800 text-sm font-medium rounded-full">
                                             {{ viatge.sentit | capitalize }}
-                                        </span>
+                                        </span>-->
                                     </div>
                                     <div class="flex justify-between items-center">
                                         <p class="text-sm md:text-3xl text-gray-500 mt-2 px-2">

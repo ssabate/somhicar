@@ -5,7 +5,7 @@ from database.db import db
 class ParadaController:
     @staticmethod
     def get_parades():
-        parades = Parada.query.all()
+        parades = Parada.query.order_by(Parada.separacio_port, Parada.descripcio).all()
         return render_template('parades/index.html', parades=parades)
 
     @staticmethod

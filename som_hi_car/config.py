@@ -8,7 +8,7 @@ class Config:
     UPLOAD_FOLDER = os.path.join('static', 'images', 'avatars')
 
     # Mostra consultes SQL per depurar
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
     # En producció a false
     DEBUG = True

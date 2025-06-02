@@ -40,7 +40,7 @@
         <div class="mb-4">
             <label for="parada_arribada_id" class="block text-sm font-medium text-gray-700">Parada d'Arribada</label>
             <select id="parada_arribada_id" name="parada_arribada_id" required>
-                {% for parada in parades %}
+                {% for parada in parades|reverse %}
                 <option value="{{ parada.id }}">{{ parada.descripcio }}</option>
                 {% endfor %}
             </select>

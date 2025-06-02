@@ -7,7 +7,7 @@ from datetime import datetime
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 class ViatgeController:
@@ -66,6 +66,15 @@ class ViatgeController:
                     flash('No pots seleccionar un vehicle que no és teu.', 'error')
                     return redirect(url_for('main.create_viatge'))
 
+                # Mirem que un i només un sector de les parades pertanyigue al Port
+                sector_inici=Parada.query.filter_by(id=nou_viatge.parada_recollida_id).first().ubicacio.sector
+                sector_fi = Parada.query.filter_by(id=nou_viatge.parada_arribada_id).first().ubicacio.sector
+                logger.error(f"User ID: {sector_inici} attempted to create trip without conductor status")
+                if (not sector_inici.es_port and not sector_fi.es_port) or (sector_inici.es_port and sector_fi.es_port):
+                    flash('Una i només una parada ha de ser del Port.', 'error')
+                    return redirect(url_for('main.create_viatge'))
+
+
                 db.session.add(nou_viatge)
                 db.session.commit()
                 logger.debug(f"Created trip ID: {nou_viatge.id} by user ID: {current_user.id}")
@@ -78,7 +87,7 @@ class ViatgeController:
                 return redirect(url_for('main.create_viatge'))
 
         vehicles = Vehicle.query.join(Conductor.vehicles).filter(Conductor.usuari_id == current_user.id).all()
-        parades = Parada.query.all()
+        parades = Parada.query.order_by(Parada.separacio_port).all()
         return render_template('viatges/nou.html', now=datetime.now, vehicles=vehicles, conductors=[current_user.conductor], parades=parades)
 
     @staticmethod
