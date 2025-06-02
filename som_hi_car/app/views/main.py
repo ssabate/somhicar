@@ -11,7 +11,7 @@ bp_main = Blueprint('main', __name__)
 @bp_main.route('/')
 def home():
     # Fetch the trips (viatges)
-    viatges = Viatge.query.filter_by(realitzat=False).all()
+    viatges = Viatge.query.filter_by(realitzat=False).order_by(Viatge.data_hora_inici.desc()).all()
     return render_template('home.html', viatges=viatges)
 
 
