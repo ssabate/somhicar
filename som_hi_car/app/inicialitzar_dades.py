@@ -6,12 +6,12 @@ from werkzeug.security import generate_password_hash
 def inserta_dades_base():
     # ---- SECTORS ----
     sectors_info = [
-        {"descripcio": "Els Ports", "es_port": False},
+        {"descripcio": "Lo Port", "es_port": True},
         {"descripcio": "Reguers", "es_port": False},
         {"descripcio": "Jesús", "es_port": False},
         {"descripcio": "Roquetes", "es_port": False},
-        {"descripcio": "Tortosa", "es_port": True},
-        {"descripcio": "Remolins", "es_port": False},
+        {"descripcio": "Tortosa", "es_port": False},
+        {"descripcio": "Alfara de Carles", "es_port": False},
     ]
     sectors = {}
     for s in sectors_info:
@@ -24,13 +24,13 @@ def inserta_dades_base():
 
     # ---- UBICACIONS ----
     ubicacions_info = [
-        {"nom": "Port de Tortosa", "sector": sectors["Tortosa"]},
-        {"nom": "Centre de Tortosa", "sector": sectors["Tortosa"]},
+        {"nom": "Tortosa centre", "sector": sectors["Tortosa"]},
         {"nom": "Reguers poble", "sector": sectors["Reguers"]},
         {"nom": "Jesús poble", "sector": sectors["Jesús"]},
         {"nom": "Roquetes ciutat", "sector": sectors["Roquetes"]},
-        {"nom": "Remolins zona", "sector": sectors["Remolins"]},
-        {"nom": "Els Ports centre", "sector": sectors["Els Ports"]},
+        {"nom": "Roquetes rodalies", "sector": sectors["Roquetes"]},
+        {"nom": "Alfara de Carles poble", "sector": sectors["Alfara de Carles"]},
+        {"nom": "Lo Port centre", "sector": sectors["Lo Port"]},
     ]
     ubicacions = {}
     for u in ubicacions_info:
@@ -43,13 +43,14 @@ def inserta_dades_base():
 
     # ---- PARADES ----
     parades_info = [
-        {"descripcio": "Parada Central Tortosa", "ubicacio": ubicacions["Centre de Tortosa"], "separacio_port": 0},
-        {"descripcio": "Parada Port Tortosa", "ubicacio": ubicacions["Port de Tortosa"], "separacio_port": 5},
-        {"descripcio": "Parada Reguers centre", "ubicacio": ubicacions["Reguers poble"], "separacio_port": 10},
-        {"descripcio": "Parada Jesús plaça", "ubicacio": ubicacions["Jesús poble"], "separacio_port": 15},
-        {"descripcio": "Parada Roquetes avinguda", "ubicacio": ubicacions["Roquetes ciutat"], "separacio_port": 20},
-        {"descripcio": "Parada Remolins parc", "ubicacio": ubicacions["Remolins zona"], "separacio_port": 25},
-        {"descripcio": "Parada Els Ports mercat", "ubicacio": ubicacions["Els Ports centre"], "separacio_port": 30},
+        {"descripcio": "L'Esquirol (rest. La Tele)", "ubicacio": ubicacions["Lo Port centre"], "separacio_port": 0},
+        {"descripcio": "Pous de la Neu (cruïlla camí Caro)", "ubicacio": ubicacions["Lo Port centre"], "separacio_port": 0},
+        {"descripcio": "Pous de la Neu (restaurant)", "ubicacio": ubicacions["Lo Port centre"], "separacio_port": 0},
+        {"descripcio": "Urbanització Els Pilans", "ubicacio": ubicacions["Roquetes rodalies"], "separacio_port": 15},
+        {"descripcio": "Reguers centre", "ubicacio": ubicacions["Reguers poble"], "separacio_port": 17},
+        {"descripcio": "Jesús mercat", "ubicacio": ubicacions["Jesús poble"], "separacio_port": 20},
+        {"descripcio": "Tortosa mercat", "ubicacio": ubicacions["Tortosa centre"], "separacio_port": 25},
+        {"descripcio": "Roquetes mercat", "ubicacio": ubicacions["Roquetes ciutat"], "separacio_port": 20},
     ]
     for p in parades_info:
         parada = Parada.query.filter_by(descripcio=p["descripcio"]).first()
@@ -80,7 +81,7 @@ def inserta_dades_base():
             telefon_fix="977000111",
             telefon_mobil="666123456",
             adreca="Carrer Major, Tortosa",
-            ubicacio=ubicacions["Centre de Tortosa"],
+            ubicacio=ubicacions["Tortosa centre"],
             data_naixement=datetime(1985, 4, 12),
             avatar=None
         )
@@ -155,7 +156,7 @@ def inserta_dades_base():
             telefon_fix="000000000",
             telefon_mobil="000000000",
             adreca="Plaça de l'Ajuntament, Tortosa",
-            ubicacio=ubicacions["Centre de Tortosa"],
+            ubicacio=ubicacions["Tortosa centre"],
             data_naixement=datetime(1980, 1, 1),
             avatar=None,
             super_admin=True

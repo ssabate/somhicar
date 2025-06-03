@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import flash, render_template, request, redirect, url_for, jsonify
 from app.models import Sector
 from database.db import db
 
@@ -34,9 +34,16 @@ class SectorController:
         if request.method == 'POST':
             try:
                 data = request.form
+                # Check how many sectors belongs to the port
+                if sector.es_port and Sector.query.filter_by(es_port=True).count() == 1 and bool(data.get('es_port', False))==False:
+                    flash('No pots canviar l\'últim sector que pertany al Port.', 'error')
+                    return redirect(url_for('main.sectors'))
+                    # return jsonify({'error': 'Cannot delete the last port sector'}), 400
+
                 sector.descripcio = data['descripcio']
                 sector.es_port = bool(data.get('es_port', False))
                 db.session.commit()
+                flash('Sector editat correctament!', 'success')
                 return redirect(url_for('main.sectors'))
             except Exception as e:
                 db.session.rollback()
@@ -50,8 +57,14 @@ class SectorController:
         if not sector:
             return jsonify({'error': 'Sector not found'}), 404
         try:
+            # Check how many sectors belongs to the port
+            if sector.es_port and Sector.query.filter_by(es_port=True).count() == 1:
+                flash('No pots borrar l\'últim sector que pertany al Port.', 'error')
+                return redirect(url_for('main.sectors'))
+                #return jsonify({'error': 'Cannot delete the last port sector'}), 400
             db.session.delete(sector)
             db.session.commit()
+            flash('Sector borrat correctament!', 'success')
             return redirect(url_for('main.sectors'))
         except Exception as e:
             db.session.rollback()

@@ -71,7 +71,6 @@ class ViatgeController:
                 # Mirem que un i només un sector de les parades pertanyigue al Port
                 sector_inici=Parada.query.filter_by(id=nou_viatge.parada_recollida_id).first().ubicacio.sector
                 sector_fi = Parada.query.filter_by(id=nou_viatge.parada_arribada_id).first().ubicacio.sector
-                logger.error(f"User ID: {sector_inici} attempted to create trip without conductor status")
                 if (not sector_inici.es_port and not sector_fi.es_port) or (sector_inici.es_port and sector_fi.es_port):
                     flash('Una i només una parada ha de ser del Port.', 'error')
                     return redirect(url_for('main.create_viatge'))

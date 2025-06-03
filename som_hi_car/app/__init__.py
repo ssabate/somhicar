@@ -60,7 +60,7 @@ def create_app():
             upgrade()
             db.create_all()
             app.logger.info("Taules inicialitzades correctament")
-            #inserta_dades_base()
+            inserta_dades_base()
             app.logger.info("Dades base inicialitzades correctament")
         except Exception as e:
             app.logger.error(f"Error al crear les taules: {e}")
