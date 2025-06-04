@@ -15,7 +15,7 @@
             Els teus viatges
         </h1>
         <p class="mt-6 text-xl text-blue-100 max-w-3xl mx-auto">
-            Gestiona els teus viatges com a conductor, crea-ne de nous o edita els existents.
+            Gestiona els teus viatges com a conductor, crea'n de nous o edita els existents.
         </p>
     </div>
 </div>
@@ -34,7 +34,22 @@
         <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-900">Llista de viatges</h2>
+                    <h2 id="titulo" class="text-4xl font-bold text-gray-900">Llista de viatges</h2>
+                    <script>
+  function aplicarTamanioTexto() {
+    const titulo = document.getElementById('titulo');
+    // Limpia clases previas de tamaño
+    titulo.classList.remove('text-2xl', 'text-4xl');
+    // Detecta móvil por ancho de pantalla
+    if (/Mobi|Android/i.test(navigator.userAgent)){
+      titulo.classList.add('text-5xl'); // Tamaño para móvil
+    } else {
+      titulo.classList.add('text-3xl'); // Tamaño para PC
+    }
+  }
+  aplicarTamanioTexto();
+  window.addEventListener('resize', aplicarTamanioTexto);
+</script>
                     Filtrar per:
                     <select class="border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500" onchange="handleSelectChange(this.value)">
                         <option {% if realitzat==0 %}selected="true"{% endif %}>Tots</option>

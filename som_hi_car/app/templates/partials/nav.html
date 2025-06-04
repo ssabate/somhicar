@@ -2,10 +2,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center h-16">
             <!-- Logo y marca -->
-            <div class="flex-shrink-0 flex items-center absolute left-4">
+            <div class="flex-shrink-0 flex items-center absolute left-4 ">
                 <a href="{{ url_for('main.home') }}" class="flex items-center space-x-4">
-                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Som-hi Car Logo" class="h-10 w-auto">
-                    <span class="text-xl font-bold md:text-3xl text-gray-800">Som-Hi Car</span>
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Som-hi Car Logo" class="h-20 w-auto">
+                    <!--<span class="text-xl font-bold md:text-3xl text-gray-800">Som-Hi Car</span>-->
                 </a>
             </div>
 
@@ -70,8 +70,8 @@
                         <!-- Menú de usuario (desktop) -->
                           <div class="flex space-x-8">
                             <div class="space-x-4 sm:flex sm:items-center">
-                                <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 text-4xl xl:text-2xl font-medium">Inicia sessió</a>
-                                <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-4xl xl:text-2xl font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
+                                <a href="{{ url_for('auth.login') }}" class="text-gray-500 hover:text-gray-700 sm:text-2xl md:text-3xl xl:text-4xl font-medium">Inicia sessió</a>
+                                <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent sm:text-2xl md:text-3xl xl:text-4xl font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">Registra't</a>
                             </div>
                         </div>
 
