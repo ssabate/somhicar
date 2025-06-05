@@ -10,6 +10,13 @@ DONE LIST
 6. Arreglo datos fijos de la base de datos
 7. Oculto botón de reservas si el viaje no tiene
 
+IDs DE ELEMENTOS PARA FIJAR TAMAÑO EN utils.js
+
+- primer: tamaño máximo PC 4-xl, Móvil 6-xl
+- segon: algo menor  PC 3-xl, Móvil 5-xl
+
+MIGRACIONES
+
 Para hacer las migraciones después de modificar el modelo he tenido que hacer lo siguiente:
 ```bash
 
