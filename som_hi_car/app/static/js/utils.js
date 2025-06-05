@@ -2,7 +2,7 @@
 function aplicarTamanyText() {
 
     // Selecciona todos los elementos con id que comienza con "segon";
-    let elementos= document.querySelectorAll('[id^="primer"]');
+    let elementos= document.querySelectorAll('[id^="titol"]');
     for (const elemento of elementos) {
         // Limpia clases previas de tamaño
         elemento.classList.remove('text-2xl', 'text-4xl');
@@ -15,7 +15,7 @@ function aplicarTamanyText() {
     }
 
     // Selecciona todos los elementos con id que comienza con "segon";
-    elementos= document.querySelectorAll('[id^="segon"]');
+    elementos= document.querySelectorAll('[id^="subtitol"]');
     for (const elemento of elementos) {
         // Limpia clases previas de tamaño
         elemento.classList.remove('text-2xl', 'text-4xl');
@@ -28,7 +28,7 @@ function aplicarTamanyText() {
     }
 
     // Selecciona todos los elementos con id que comienza con "segon";
-    elementos= document.querySelectorAll('[id^="tercer"]');
+    elementos= document.querySelectorAll('[id^="fila"]');
     for (const elemento of elementos) {
         // Limpia clases previas de tamaño
         elemento.classList.remove('text-2xl', 'text-4xl');
@@ -41,7 +41,7 @@ function aplicarTamanyText() {
     }
 
      // Selecciona todos los elementos con id que comienza con "segon";
-    elementos= document.querySelectorAll('[id^="quart"]');
+    elementos= document.querySelectorAll('[id^="subfila"]');
     for (const elemento of elementos) {
         // Limpia clases previas de tamaño
         elemento.classList.remove('text-2xl', 'text-4xl');
@@ -54,7 +54,7 @@ function aplicarTamanyText() {
     }
 
     // Selecciona todos los elementos con id que comienza con "segon";
-    elementos= document.querySelectorAll('[id^="quint"]');
+    elementos= document.querySelectorAll('[id^="boto"]');
     for (const elemento of elementos) {
         // Limpia clases previas de tamaño
         elemento.classList.remove('text-2xl', 'text-4xl');
