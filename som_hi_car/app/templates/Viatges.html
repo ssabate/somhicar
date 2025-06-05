@@ -99,12 +99,12 @@
                     {% endfor %}
                 </div>
                 <div class="mt-6 flex justify-center">
-                    <button  id="load-more-btn" class="inline-flex items-center px-6 py-3 border border-gray-300 text-2xl font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transform transition hover:-translate-y-1 shadow-md">
+                    <button  id="quint-load-more-btn" class="inline-flex items-center px-6 py-3 border border-gray-300 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transform transition hover:-translate-y-1 shadow-md">
                         Carrega més viatges
                     </button>
                 </div>
                 <script>
-                    document.get.getElementById('load-more-btn').addEventListener('click', function() {
+                    document.get.getElementById('quint-load-more-btn').addEventListener('click', function() {
                         const extraViatges = document.querySelectorAll('.extra-viatge');
                         extraViatges.forEach(viatge => viatge.classList.remove('hidden'));
                         this.style.display = 'none'; // Ocultar el botón después de cargar los viajes
