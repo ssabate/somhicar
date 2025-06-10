@@ -66,6 +66,18 @@ function aplicarTamanyText() {
         }
     }
 
+    // Selecciona todos los elementos con id que comienza con "segon";
+    elementos= document.querySelectorAll('[id^="boto_gran_movil"]');
+    for (const elemento of elementos) {
+        // Limpia clases previas de tamaño
+        elemento.classList.remove('text-2xl', 'text-4xl');
+        // Detecta móvil y aplica clase correspondiente
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            elemento.classList.add('text-4xl'); // Tamaño para móvil
+        } else {
+            elemento.classList.add('text-lg'); // Tamaño para PC
+        }
+    }
 }
 
 aplicarTamanyText();
