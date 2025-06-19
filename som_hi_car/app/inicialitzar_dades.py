@@ -1,9 +1,17 @@
 from datetime import datetime
-from app.models import Sector, Ubicacio, Parada, TipusVehicle, Usuari, Conductor, Passatger, Vehicle
+from app.models import Sector, Ubicacio, Parada, TipusVehicle, Usuari, Conductor, Passatger, Vehicle, Configuracio
 from database.db import db
 from werkzeug.security import generate_password_hash
 
 def inserta_dades_base():
+
+    # ---- CONFIGURACIÓ ----
+    configuracio = Configuracio.query.first()
+    if not configuracio:
+        configuracio = Configuracio(pagament_activat=True, id=1)
+        db.session.add(configuracio)
+    db.session.commit()
+
     # ---- SECTORS ----
     sectors_info = [
         {"descripcio": "Lo Port", "es_port": True},

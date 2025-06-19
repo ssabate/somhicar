@@ -295,6 +295,14 @@ def delete_passatger(passatger_id):
     from app.controllers.passatger_controller import PassatgerController
     return PassatgerController.delete_passatger(passatger_id)
 
+@bp_main.route('/config', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def config():
+    from app.controllers.configuracio_controller import ConfiguracioController
+    return ConfiguracioController.editar_configuracio()
+
+
 @bp_main.route('/perfil')
 @login_required
 def perfil():

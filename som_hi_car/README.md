@@ -1,5 +1,7 @@
 TODO LIST
 1. Mirar diseño responsive de la web3. 
+2. Revisar la legislación poniendo datos de la AAVV
+3. Poner lista de paradas que me pase Juanjo
 
 DONE LIST
 1. Poner observaciones en los viajes y si las hay marcarlo en la lista de viajes para que el usuario las pueda leer
