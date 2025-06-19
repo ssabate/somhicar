@@ -185,7 +185,7 @@
                                         {{ trip.parada_recollida.ubicacio.nom }} → {{ trip.parada_arribada.ubicacio.nom }}
                                     </p>
                                     <p class="text-sm text-gray-500">
-                                        {{ trip.data_hora_inici.strftime('%d %B %Y, %H:%M') }} · {{ trip.import_ }}€ ·
+                                        {{ trip.data_hora_inici.strftime('%d %B %Y, %H:%M') }} <!-- · {{ trip.import_ }}€ · -->
                                         {{ 'Completat' if trip.realitzat else 'Programat' }}
                                     </p>
                                 </div>
