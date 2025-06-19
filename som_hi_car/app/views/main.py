@@ -303,3 +303,11 @@ def perfil():
 @bp_main.route('/perfil/actualitzar', methods=['POST'])
 def update_profile():
     return ProfileController.update_profile()
+
+@bp_main.route('/perfil/termes', methods=['GET'])
+def show_terms():
+    return ProfileController.show_terms()
+
+@bp_main.route('/perfil/policy', methods=['GET'])
+def show_policy():
+    return ProfileController.show_policy()

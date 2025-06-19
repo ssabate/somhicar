@@ -17,6 +17,17 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 class ProfileController:
+
+    @staticmethod
+    def show_terms():
+        logger.debug("Showing terms and conditions")
+        return render_template('legislacio/AvisLegal.html')
+
+    @staticmethod
+    def show_policy():
+        logger.debug("Showing privacy policy")
+        return render_template('legislacio/Politica_privacitat.html')
+
     @staticmethod
     @login_required
     def show_profile():
