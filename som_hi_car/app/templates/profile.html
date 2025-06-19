@@ -11,10 +11,10 @@
         <div class="absolute bottom-10 left-1/2 w-60 h-60 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
     </div>
     <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl transform transition duration-500 hover:scale-105">
+        <h1 id= "titol1" class="font-extrabold tracking-tight text-white transform transition duration-500 hover:scale-105">
             El teu perfil
         </h1>
-        <p class="mt-6 text-xl text-blue-100 max-w-3xl mx-auto">
+        <p id= "subtitol1" class="mt-6 text-blue-100 max-w-3xl mx-auto">
             Gestiona la teva informació personal, vehicles, viatges, ...
         </p>
     </div>
@@ -34,85 +34,85 @@
                                  onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"
                                  alt="{{ user.nom_complet }}">
                             <div>
-                                <p class="text-5xl font-medium text-gray-900">{{ user.nom_complet }}</p>
-                                <p class="text-4xl text-gray-500">{{ user.email }}</p>
+                                <p id="titol2" class="font-medium text-gray-900">{{ user.nom_complet }}</p>
+                                <p id="subtitol2" class="text-gray-500">{{ user.email }}</p>
                             </div>
                         </div>
-                        <form method="POST" action="{{ url_for('main.update_profile') }}" enctype="multipart/form-data">
+                        <form id="subtitol3" method="POST" action="{{ url_for('main.update_profile') }}" enctype="multipart/form-data">
                             {{ form.hidden_tag() }}
-                            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 text-4xl">
+                            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-4xl font-medium text-gray-700">Nom*</label>
+                                    <label class="block font-medium text-gray-700">Nom*</label>
                                     {{ form.nom(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", required=True) }}
                                     {% if form.nom.errors %}
-                                        <p class="text-red-500 text-4xl mt-1">{{ form.nom.errors[0] }}</p>
+                                        <p class="text-red-500 mt-1">{{ form.nom.errors[0] }}</p>
                                     {% endif %}
                                 </div>
                                 <div>
-                                    <label class="block text-4xl font-medium text-gray-700">Cognoms*</label>
+                                    <label class="block font-medium text-gray-700">Cognoms*</label>
                                     {{ form.cognom(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", required=True) }}
                                     {% if form.cognom.errors %}
-                                        <p class="text-red-500 text-4xl mt-1">{{ form.cognom.errors[0] }}</p>
+                                        <p class="text-red-500 mt-1">{{ form.cognom.errors[0] }}</p>
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="mt-6  text-4xl">
-                                <label class="block text-4xl font-medium text-gray-700">Correu electrònic*</label>
+                            <div class="mt-6">
+                                <label class="block font-medium text-gray-700">Correu electrònic*</label>
                                 {{ form.email(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", required=True) }}
                                 {% if form.email.errors %}
-                                    <p class="text-red-500 text-4xl mt-1">{{ form.email.errors[0] }}</p>
+                                    <p class="text-red-500 mt-1">{{ form.email.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
-                                <label class="block text-4xl font-medium text-gray-700">Telèfon mòbil*</label>
+                            <div class="mt-6">
+                                <label class="block font-medium text-gray-700">Telèfon mòbil*</label>
                                 {{ form.telefon_mobil(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", required=True) }}
                                 {% if form.telefon_mobil.errors %}
-                                    <p class="text-red-500 text-4xl mt-1">{{ form.telefon_mobil.errors[0] }}</p>
+                                    <p class="text-red-500 mt-1">{{ form.telefon_mobil.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Telèfon fix</label>
                                 {{ form.telefon_fix(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
                                 {% if form.telefon_fix.errors %}
                                     <p class="text-red-500 mt-1">{{ form.telefon_fix.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Adreça</label>
                                 {{ form.adreca(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
                                 {% if form.adreca.errors %}
                                     <p class="text-red-500 mt-1">{{ form.adreca.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Data de naixement</label>
                                 {{ form.data_naixement(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
                                 {% if form.data_naixement.errors %}
                                     <p class="text-red-500 mt-1">{{ form.data_naixement.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Ubicació</label>
                                 {{ form.ubicacio_id(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
                                 {% if form.ubicacio_id.errors %}
                                     <p class="text-red-500 mt-1">{{ form.ubicacio_id.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Imatge de perfil</label>
                                 {{ form.avatar(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
                                 {% if form.avatar.errors %}
                                     <p class="text-red-500 mt-1">{{ form.avatar.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <div class="mt-6  text-4xl">
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Nova contrasenya</label>
                                 {{ form.nova_contrasenya(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Mínim 8 caràcters") }}
                                 {% if form.nova_contrasenya.errors %}
                                     <p class="text-red-500 mt-1">{{ form.nova_contrasenya.errors[0] }}</p>
                                 {% endif %}
                             </div>
-                            <button type="submit" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-4xl font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                            <button id="boto_gran_movil1" type="submit" class="mt-6 inline-flex items-center px-4 py-2 border border-transparent font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
                                 Guarda canvis
                             </button>
                         </form>
@@ -123,11 +123,11 @@
             <!-- Sidebar Info -->
             <div class="col-span-3 xl:col-span-1">
                 <!-- Vehicles -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl mb-6">
+                <div class="bg-gray rounded-xl shadow-lg overflow-hidden transform transition hover:shadow-xl mb-6">
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-5xl xl:text-3xl font-bold text-gray-900">Vehicles</h3>
-                            <a href="{{ url_for('main.create_vehicle_user') }}" class="inline-flex items-center px-4 py-2 border border-transparent xl:text-sm text-4xl font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
+                            <h3 id="titol3" class="font-bold text-gray-900">Vehicles</h3>
+                            <a id="boto_gran_movil2" href="{{ url_for('main.create_vehicle_user') }}" class="inline-flex items-center px-4 py-2 border border-transparent font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600 transform transition hover:-translate-y-1 shadow-md">
                                 <i class="fas fa-plus mr-2"></i> Afegeix vehicle
                             </a>
                         </div>
@@ -186,7 +186,7 @@
                                     </p>
                                     <p class="text-sm text-gray-500">
                                         {{ trip.data_hora_inici.strftime('%d %B %Y, %H:%M') }} · {{ trip.import_ }}€ ·
-                                        {{ 'Completat' if trip.realitzat else 'Pendent' }}
+                                        {{ 'Completat' if trip.realitzat else 'Programat' }}
                                     </p>
                                 </div>
                                 {% endfor %}
@@ -236,6 +236,7 @@
             </div>
         </div>
     </div>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 </div>
 
 <!-- Add animations CSS -->
