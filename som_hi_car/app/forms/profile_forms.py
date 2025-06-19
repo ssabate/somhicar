@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, DateField, SelectField
+from wtforms import StringField, PasswordField, DateField, SelectField,BooleanField
 from wtforms.validators import DataRequired, Email, Length, Optional
 from app.daos.ubicacio_dao import UbicacioDAO
 from database.db import db
@@ -22,6 +22,9 @@ class ProfileForm(FlaskForm):
         FileAllowed(['jpg', 'png'], 'Només es permeten imatges JPG o PNG')
     ])
     ubicacio_id = SelectField('Ubicació', coerce=int, validators=[Optional()])
+
+    confirmation_needed = BooleanField('¿Confirmación necesaria?')
+
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)

@@ -97,8 +97,11 @@
                         }}</p>
                     <p class="text-3xl lg:text-sm text-gray-500">{{ viatge.conductor.usuari.email }}</p>
                     <p class="text-3xl lg:text-sm text-gray-500">{{ viatge.conductor.usuari.telefon_mobil }}
-                        {%if viatge.conductor.usuari.telefon_fix %} - {{ viatge.conductor.usuari.telefon_fix }} {% endif
-                        %}</p>
+                        {%if viatge.conductor.usuari.telefon_fix %} - {{ viatge.conductor.usuari.telefon_fix }} {% endif %}
+                        </p>
+                    <p class="text-3xl lg:text-sm text-red-500">
+                    {%if viatge.conductor.usuari.confirmation_needed %} <p class="text-3xl lg:text-sm text-green-500"> Confirma les reserves {% else %} <p class="text-3xl lg:text-sm text-red-500"> NO confirma les reserves {% endif %}
+                    </p>
                 </div>
             </div>
             <div class="md:text-4xl">

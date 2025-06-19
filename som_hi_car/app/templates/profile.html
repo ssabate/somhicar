@@ -99,6 +99,14 @@
                                 {% endif %}
                             </div>
                             <div class="mt-6">
+                                <label class="block font-medium text-gray-700">Vols confirmar les reserves?</label>
+                                <!--{{ form.confirmation_needed(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}-->
+                                {{ form.confirmation_needed(checked=user.confirmation_needed) }}
+                                {% if form.confirmation_needed.errors %}
+                                    <p class="text-red-500 mt-1">{{ form.confirmation_needed.errors[0] }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="mt-6">
                                 <label class="block font-medium text-gray-700">Imatge de perfil</label>
                                 {{ form.avatar(class="mt-1 w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500") }}
                                 {% if form.avatar.errors %}

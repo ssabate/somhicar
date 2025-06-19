@@ -63,6 +63,7 @@ class Usuari(db.Model, UserMixin):
     data_naixement = Column(DateTime)
     avatar = Column(String(255))
     super_admin = db.Column(db.Boolean, default=False, nullable=False)
+    confirmation_needed = db.Column(db.Boolean, default=True, nullable=True)
 
     conductor = relationship("Conductor", uselist=False, back_populates="usuari", lazy='joined')
     passatger = relationship("Passatger", uselist=False, back_populates="usuari", lazy='joined')

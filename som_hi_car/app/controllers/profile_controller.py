@@ -65,6 +65,7 @@ class ProfileController:
                 user.adreca = form.adreca.data
                 user.data_naixement = form.data_naixement.data
                 user.ubicacio_id = form.ubicacio_id.data if form.ubicacio_id.data != 0 else None
+                user.confirmation_needed = bool(form.confirmation_needed.data)
 
                 # Handle avatar upload
                 if form.avatar.data:
