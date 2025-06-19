@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}Mi App{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 <body class="min-h-screen bg-gray-50">
     {% include 'partials/nav.html' %}
@@ -25,9 +26,10 @@
     <!-- Content -->
     <main>
         {% block content %}{% endblock %}
-        <div  class="max-w-3xl mx-auto text-center">
+        <div  id="subfila1" class="max-w-3xl mx-auto text-center text-gray-500">
             &copy; 2025 Som-Hi Car. Tots els drets reservats.<p></p>
-            Web desenvolupada pels alumnes de 2n de DAM de l'Institut de l'Ebre - Tortosa: A. Beltran, J. Calvet, D, Groza, G. Moreno i H. White.
+            Web desenvolupada pels alumnes de DAM de l'Institut de l'Ebre: A. Beltran, J. Calvet, D, Groza, G. Moreno i H. White.
+        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
         </div>
     </main>
 </body>

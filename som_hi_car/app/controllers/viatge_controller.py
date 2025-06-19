@@ -56,7 +56,8 @@ class ViatgeController:
                     #sentit=data['sentit'],
                     confirmat=False,
                     realitzat=False,
-                    import_=float(data['import_']),
+                    #import_=float(data['import_']),
+                    import_=0,
                     observacions=data['observacions']
                 )
                 nou_viatge.sentit = 'Muntada' if Parada.query.filter_by(id=nou_viatge.parada_recollida_id).first().separacio_port >= Parada.query.filter_by(id=nou_viatge.parada_arribada_id).first().separacio_port else 'Baixada',
@@ -118,7 +119,8 @@ class ViatgeController:
                 viatge.parada_arribada_id = int(data['parada_arribada_id'])
                 viatge.sentit = 'Muntada' if Parada.query.filter_by(id=viatge.parada_recollida_id).first().separacio_port >= Parada.query.filter_by(id=viatge.parada_arribada_id).first().separacio_port else 'Baixada'
 
-                viatge.import_ = float(data['import_'])
+                #viatge.import_ = float(data['import_'])
+                viatge.import_ = 0
                 viatge.observacions = data['observacions']
 
                 # Verify vehicle belongs to conductor

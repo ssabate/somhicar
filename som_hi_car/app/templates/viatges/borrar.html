@@ -18,7 +18,7 @@
                         <li><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</li>
                         <li><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</li>
                         <li><strong>Sentit:</strong> {{ viatge.sentit | capitalize }}</li>
-                        <li><strong>Import:</strong> {{ viatge.import_ }}€</li>
+                        <!--<li><strong>Import:</strong> {{ viatge.import_ }}€</li>-->
                     </ul>
                 </div>
                 <form method="POST" action="{{ url_for('main.delete_viatge', viatge_id=viatge.id) }}" class="flex space-x-4">
