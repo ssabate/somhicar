@@ -27,7 +27,8 @@ class AuthController:
                 contrasenya=hashed_password,
                 nom_complet=nom_usuari,
                 telefon_mobil=phone,
-                data_naixement=data_naixement
+                data_naixement=data_naixement,
+                confirmation_needed=False,
             )
             with current_app.app_context():
                 from database.db import db

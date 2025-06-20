@@ -26,6 +26,9 @@
                         {% endif %}
                         {% if current_user.super_admin %}
                             <!-- Rutas exclusivas para administradores -->
+                            <a href="{{ url_for('main.config') }}" class="{% if request.endpoint == 'main.config' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Configuració
+                            </a>
                             <a href="{{ url_for('main.conductors') }}" class="{% if request.endpoint == 'main.conductors' %}border-blue-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                 Conductors
                             </a>

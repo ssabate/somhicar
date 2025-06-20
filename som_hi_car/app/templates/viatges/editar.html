@@ -51,11 +51,13 @@
                 <option value="muntada">Muntada</option>
                 <option value="baixada">Baixada</option>
             </select>
-        </div>
+        </div>-->
+        {% if config.pagament_activat %}
         <div class="mb-4">
             <label for="import_" class="block text-sm font-medium text-gray-700">Import (€)</label>
-            <input type="number" step="0.01" id="import_" name="import_" value="{{ viatge.import_ }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-        </div>-->
+            <input type="number" step="0.5" id="import_" name="import_" value="{{ viatge.import_ }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        {% endif %}
         <div class="mb-4">
             <label for="places_restants" class="block text-sm font-medium text-gray-700">Places restants</label>
             <input type="number" id="places_restants" name="places_restants" value="{{ viatge.places_restants }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">

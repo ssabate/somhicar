@@ -295,6 +295,14 @@ def delete_passatger(passatger_id):
     from app.controllers.passatger_controller import PassatgerController
     return PassatgerController.delete_passatger(passatger_id)
 
+@bp_main.route('/config', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def config():
+    from app.controllers.configuracio_controller import ConfiguracioController
+    return ConfiguracioController.editar_configuracio()
+
+
 @bp_main.route('/perfil')
 @login_required
 def perfil():
@@ -303,3 +311,11 @@ def perfil():
 @bp_main.route('/perfil/actualitzar', methods=['POST'])
 def update_profile():
     return ProfileController.update_profile()
+
+@bp_main.route('/perfil/termes', methods=['GET'])
+def show_terms():
+    return ProfileController.show_terms()
+
+@bp_main.route('/perfil/policy', methods=['GET'])
+def show_policy():
+    return ProfileController.show_policy()

@@ -1,6 +1,8 @@
 from flask import render_template, request, redirect, url_for, jsonify, flash
 from flask_login import current_user, login_required
 from datetime import datetime
+
+from app.daos.configuracio_dao import ConfiguracioDAO
 from app.models import Viatge, Vehicle, Conductor, Parada
 from database.db import db
 from datetime import datetime
@@ -29,7 +31,13 @@ class ViatgeController:
 
         parades = Parada.query.all()
         logger.debug(f"Found {len(viatges)} trips")
-        return render_template('Viatges.html', viatges=viatges, parades=parades, realitzat=realitzat)
+
+        # Get configuration settings
+        config_dao = ConfiguracioDAO(db)
+        config = config_dao.get_by_id(1)
+
+
+        return render_template('Viatges.html', viatges=viatges, parades=parades, realitzat=realitzat, config=config)
 
 
 
@@ -45,6 +53,11 @@ class ViatgeController:
             try:
                 data = request.form
                 conductor = Conductor.query.filter_by(usuari_id=current_user.id).first()
+                # Si el pagament està activat posem l'import i sinó 0
+                try:
+                    preu = float(data['import_'])
+                except Exception as e:
+                    preu = 0
                 nou_viatge = Viatge(
                     data_hora_inici=datetime.strptime(data['data_hora_inici'], '%Y-%m-%dT%H:%M'),
                     places_inicials=int(data['places_inicials']),
@@ -56,8 +69,8 @@ class ViatgeController:
                     #sentit=data['sentit'],
                     confirmat=False,
                     realitzat=False,
-                    #import_=float(data['import_']),
-                    import_=0,
+                    import_=preu,
+                    #import_=0,
                     observacions=data['observacions']
                 )
                 nou_viatge.sentit = 'Muntada' if Parada.query.filter_by(id=nou_viatge.parada_recollida_id).first().separacio_port >= Parada.query.filter_by(id=nou_viatge.parada_arribada_id).first().separacio_port else 'Baixada',
@@ -90,7 +103,10 @@ class ViatgeController:
 
         vehicles = Vehicle.query.join(Conductor.vehicles).filter(Conductor.usuari_id == current_user.id).all()
         parades = Parada.query.order_by(Parada.separacio_port).all()
-        return render_template('viatges/nou.html', now=datetime.now, vehicles=vehicles, conductors=[current_user.conductor], parades=parades)
+        # Get configuration settings
+        config_dao = ConfiguracioDAO(db)
+        config = config_dao.get_by_id(1)
+        return render_template('viatges/nou.html', now=datetime.now, vehicles=vehicles, conductors=[current_user.conductor], parades=parades, config=config)
 
     @staticmethod
     @login_required
@@ -118,9 +134,10 @@ class ViatgeController:
                 viatge.parada_recollida_id = int(data['parada_recollida_id'])
                 viatge.parada_arribada_id = int(data['parada_arribada_id'])
                 viatge.sentit = 'Muntada' if Parada.query.filter_by(id=viatge.parada_recollida_id).first().separacio_port >= Parada.query.filter_by(id=viatge.parada_arribada_id).first().separacio_port else 'Baixada'
-
-                #viatge.import_ = float(data['import_'])
-                viatge.import_ = 0
+                try:
+                    viatge.import_ = float(data['import_'])
+                except Exception as e:
+                    viatge.import_ = 0
                 viatge.observacions = data['observacions']
 
                 # Verify vehicle belongs to conductor
@@ -153,7 +170,10 @@ class ViatgeController:
         vehicles = Vehicle.query.join(Conductor.vehicles).filter(Conductor.usuari_id == current_user.id).all() if not current_user.super_admin else Vehicle.query.all()
         conductors = [viatge.conductor] if not current_user.super_admin else Conductor.query.all()
         parades = Parada.query.order_by(Parada.separacio_port).all()
-        return render_template('viatges/editar.html', viatge=viatge, vehicles=vehicles, conductors=conductors, parades=parades)
+        # Get configuration settings
+        config_dao = ConfiguracioDAO(db)
+        config = config_dao.get_by_id(1)
+        return render_template('viatges/editar.html', viatge=viatge, vehicles=vehicles, conductors=conductors, parades=parades, config=config)
 
     @staticmethod
     @login_required

@@ -92,7 +92,8 @@
                     <div class="flex items-center h-5">
                         {{ form.terms(class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300") }}
                     </div>
-                    <label for="terms" class="ml-1 text-sm text-gray-600">Accepto els <a href="#" class="text-blue-600 hover:underline">Termes i Condicions</a> i la <a href="#" class="text-blue-600 hover:underline">Política de Privacitat</a></label>
+                    <label for="terms" class="ml-1 text-sm text-gray-600">Accepto els <a href="{{ url_for('main.show_terms') }}" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Termes i Condicions</a>
+                        i la <a href="{{ url_for('main.show_policy') }}" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Política de Privacitat</a></label>
                     {% if form.terms.errors %}
                         <p class="text-xs text-red-500 mt-1">{{ form.terms.errors[0] }}</p>
                     {% endif %}

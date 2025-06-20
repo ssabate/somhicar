@@ -1,5 +1,7 @@
 TODO LIST
 1. Mirar diseño responsive de la web3. 
+2. Revisar la legislación poniendo datos de la AAVV
+3. Poner lista de paradas que me pase Juanjo
 
 DONE LIST
 1. Poner observaciones en los viajes y si las hay marcarlo en la lista de viajes para que el usuario las pueda leer
@@ -9,6 +11,7 @@ DONE LIST
 5. Asegurarme de que haya un sector que es del Puerto y otro que no al hacer CRUD de sectores
 6. Arreglo datos fijos de la base de datos
 7. Oculto botón de reservas si el viaje no tiene
+8. La información del pago de viajes se muestra o no dependiendo de un campo en la configuración (pagament_activat)
 
 IDs DE ELEMENTOS PARA FIJAR TAMAÑO EN utils.js
 

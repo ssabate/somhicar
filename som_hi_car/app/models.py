@@ -63,6 +63,7 @@ class Usuari(db.Model, UserMixin):
     data_naixement = Column(DateTime)
     avatar = Column(String(255))
     super_admin = db.Column(db.Boolean, default=False, nullable=False)
+    confirmation_needed = db.Column(db.Boolean, default=True, nullable=True)
 
     conductor = relationship("Conductor", uselist=False, back_populates="usuari", lazy='joined')
     passatger = relationship("Passatger", uselist=False, back_populates="usuari", lazy='joined')
@@ -142,3 +143,12 @@ class Reserva(db.Model):
     passatger = relationship("Passatger")
     parada_recollida = relationship("Parada", foreign_keys=[parada_recollida_id])
     parada_arribada = relationship("Parada", foreign_keys=[parada_arribada_id])
+
+class Configuracio(db.Model):
+    __tablename__ = 'configuracio'
+    id = db.Column(db.Integer, primary_key=True, default=1)
+    pagament_activat = db.Column(db.Boolean, default=False)
+    # Añade más parámetros según necesites
+
+    def __repr__(self):
+        return f"<Configuracio pagament_activat={self.pagament_activat}>"
