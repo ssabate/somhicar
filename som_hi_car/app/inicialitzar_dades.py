@@ -38,7 +38,7 @@ def inserta_dades_base():
         {"nom": "Roquetes ciutat", "sector": sectors["Roquetes"]},
         {"nom": "Roquetes rodalies", "sector": sectors["Roquetes"]},
         {"nom": "Alfara de Carles poble", "sector": sectors["Alfara de Carles"]},
-        {"nom": "Lo Port centre", "sector": sectors["Lo Port"]},
+        {"nom": "Lo Port", "sector": sectors["Lo Port"]},
     ]
     ubicacions = {}
     for u in ubicacions_info:
@@ -80,85 +80,85 @@ def inserta_dades_base():
 
     # ---- USUARIS, PASSATGERS I CONDUCTORS ----
     # Usuari: Jordi (Passatger i Conductor)
-    if not Usuari.query.filter_by(nom_usuari="jordi").first():
-        jordi = Usuari(
-            nom_usuari="jordi",
-            contrasenya=generate_password_hash("password123"),
-            nom_complet="Jordi Serra",
-            email="jordi@example.com",
-            telefon_fix="977000111",
-            telefon_mobil="666123456",
-            adreca="Carrer Major, Tortosa",
-            ubicacio=ubicacions["Tortosa centre"],
-            data_naixement=datetime(1985, 4, 12),
-            avatar=None
-        )
-        db.session.add(jordi)
-        db.session.commit()
-
-        passatger_jordi = Passatger(
-            usuari_id=jordi.id,
-            vegades_impuntuals=0,
-            vegades_no_presentat=0,
-            necessita_seient_davanter=False
-        )
-        db.session.add(passatger_jordi)
-        db.session.commit()
-
-        conductor_jordi = Conductor(
-            usuari_id=jordi.id,
-            carnet_categoria_superior="B",
-            accidents_tinguts=1
-        )
-        db.session.add(conductor_jordi)
-        db.session.commit()
-
-        vehicle_jordi = Vehicle(
-            matricula="1234XYZ",
-            marca="Ford",
-            model="Focus",
-            color="Blau",
-            num_places=5,
-            tipus_vehicle=tipus_vehicles["Cotxe"]
-        )
-        db.session.add(vehicle_jordi)
-        db.session.commit()
-
-        # Assignar vehicle a conductor
-        conductor_jordi.vehicles.append(vehicle_jordi)
-        db.session.commit()
-
-    # Usuari: Maria (només Passatger)
-    if not Usuari.query.filter_by(nom_usuari="maria").first():
-        maria = Usuari(
-            nom_usuari="maria",
-            contrasenya=generate_password_hash("pass456"),
-            nom_complet="Maria Puig",
-            email="maria@example.com",
-            telefon_fix="977000222",
-            telefon_mobil="666654321",
-            adreca="Plaça Nova, Roquetes",
-            ubicacio=ubicacions["Roquetes ciutat"],
-            data_naixement=datetime(1990, 11, 5),
-            avatar=None
-        )
-        db.session.add(maria)
-        db.session.commit()
-
-        passatger_maria = Passatger(
-            usuari_id=maria.id,
-            vegades_impuntuals=0,
-            vegades_no_presentat=0,
-            necessita_seient_davanter=False
-        )
-        db.session.add(passatger_maria)
-        db.session.commit()
+    # if not Usuari.query.filter_by(nom_usuari="jordi").first():
+    #     jordi = Usuari(
+    #         nom_usuari="jordi",
+    #         contrasenya=generate_password_hash("password123"),
+    #         nom_complet="Jordi Serra",
+    #         email="jordi@example.com",
+    #         telefon_fix="977000111",
+    #         telefon_mobil="666123456",
+    #         adreca="Carrer Major, Tortosa",
+    #         ubicacio=ubicacions["Tortosa centre"],
+    #         data_naixement=datetime(1985, 4, 12),
+    #         avatar=None
+    #     )
+    #     db.session.add(jordi)
+    #     db.session.commit()
+    #
+    #     passatger_jordi = Passatger(
+    #         usuari_id=jordi.id,
+    #         vegades_impuntuals=0,
+    #         vegades_no_presentat=0,
+    #         necessita_seient_davanter=False
+    #     )
+    #     db.session.add(passatger_jordi)
+    #     db.session.commit()
+    #
+    #     conductor_jordi = Conductor(
+    #         usuari_id=jordi.id,
+    #         carnet_categoria_superior="B",
+    #         accidents_tinguts=1
+    #     )
+    #     db.session.add(conductor_jordi)
+    #     db.session.commit()
+    #
+    #     vehicle_jordi = Vehicle(
+    #         matricula="1234XYZ",
+    #         marca="Ford",
+    #         model="Focus",
+    #         color="Blau",
+    #         num_places=5,
+    #         tipus_vehicle=tipus_vehicles["Cotxe"]
+    #     )
+    #     db.session.add(vehicle_jordi)
+    #     db.session.commit()
+    #
+    #     # Assignar vehicle a conductor
+    #     conductor_jordi.vehicles.append(vehicle_jordi)
+    #     db.session.commit()
+    #
+    # # Usuari: Maria (només Passatger)
+    # if not Usuari.query.filter_by(nom_usuari="maria").first():
+    #     maria = Usuari(
+    #         nom_usuari="maria",
+    #         contrasenya=generate_password_hash("pass456"),
+    #         nom_complet="Maria Puig",
+    #         email="maria@example.com",
+    #         telefon_fix="977000222",
+    #         telefon_mobil="666654321",
+    #         adreca="Plaça Nova, Roquetes",
+    #         ubicacio=ubicacions["Roquetes ciutat"],
+    #         data_naixement=datetime(1990, 11, 5),
+    #         avatar=None
+    #     )
+    #     db.session.add(maria)
+    #     db.session.commit()
+    #
+    #     passatger_maria = Passatger(
+    #         usuari_id=maria.id,
+    #         vegades_impuntuals=0,
+    #         vegades_no_presentat=0,
+    #         necessita_seient_davanter=False
+    #     )
+    #     db.session.add(passatger_maria)
+    #     db.session.commit()
 
     # Usuari: Admin (Passatger i Super Admin, no Conductor)
     if not Usuari.query.filter_by(nom_usuari="admin").first():
         admin = Usuari(
             nom_usuari="admin",
-            contrasenya=generate_password_hash("admin123"),
+            contrasenya=generate_password_hash("LoPort1447"),
             nom_complet="Administrador General",
             email="admin@example.com",
             telefon_fix="000000000",
