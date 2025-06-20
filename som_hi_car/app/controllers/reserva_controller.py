@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import render_template, request, redirect, url_for, jsonify, flash
 from flask_login import current_user
 
+from app.daos.configuracio_dao import ConfiguracioDAO
 from app.models import Reserva, Viatge, Passatger, Parada
 from database.db import db
 
@@ -22,7 +23,11 @@ class ReservaController:
         # Fetch all available trips (viatges) with remaining seats, except the ones created by the current user, ordered by start date descending
         viatges = Viatge.query.filter(Viatge.places_restants > 0, ~Viatge.realitzat).filter(~Viatge.conductor.has(usuari_id=current_user.id)).order_by(Viatge.data_hora_inici.desc()).all()
 
-        return render_template('reserves/index.html', reserves=reserves, viatges=viatges, has_passatger=has_passatger)
+        # Fetch configuration settings
+        config_dao = ConfiguracioDAO(db)
+        config = config_dao.get_by_id(1)
+
+        return render_template('reserves/index.html', reserves=reserves, viatges=viatges, has_passatger=has_passatger, config=config)
 
 
     @staticmethod
@@ -71,8 +76,10 @@ class ReservaController:
                 db.session.rollback()
                 flash(f'Error en crear la reserva: {str(e)}', 'error')
                 return redirect(url_for('main.reserves'))
-
-        return render_template('reserves/nou.html', viatge=viatge)
+        # Fetch configuration settings
+        config_dao = ConfiguracioDAO(db)
+        config = config_dao.get_by_id(1)
+        return render_template('reserves/nou.html', viatge=viatge, config=config)
 
     @staticmethod
     def edit_reserva(reserva_id,conductor):

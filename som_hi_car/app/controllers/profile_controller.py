@@ -1,5 +1,7 @@
 from flask import render_template, redirect, url_for, flash, current_app, request
 from flask_login import current_user, login_required
+
+from app.daos.configuracio_dao import ConfiguracioDAO
 from app.daos.usuari_dao import UsuariDAO
 from app.daos.vehicle_dao import VehicleDAO
 from app.daos.conductor_dao import ConductorDAO
@@ -33,6 +35,9 @@ class ProfileController:
     def show_profile():
         user_dao = UsuariDAO(db)
         user = user_dao.get_by_id(current_user.id)
+
+        config_dao = ConfiguracioDAO(db)
+        config = config_dao.get_by_id(1)
         logger.debug(f"Showing profile for user ID: {user.id}, Email: {user.email}")
 
         # Crear formulario con datos actuales
@@ -44,7 +49,8 @@ class ProfileController:
             telefon_fix=user.telefon_fix,
             adreca=user.adreca,
             data_naixement=user.data_naixement,
-            ubicacio_id=user.ubicacio_id or 0
+            ubicacio_id=user.ubicacio_id or 0,
+            confirmation_needed=user.confirmation_needed
         )
 
         # Query trips where user is conductor
@@ -55,7 +61,7 @@ class ProfileController:
         trips = sorted(list(set(conductor_trips + passenger_trips)), key=lambda x: x.data_hora_inici, reverse=True)
         logger.debug(f"Found {len(trips)} trips for user ID: {user.id}")
 
-        return render_template('profile.html', user=user, form=form, trips=trips)
+        return render_template('profile.html', user=user, form=form, trips=trips, config=config)
 
     @staticmethod
     @login_required

@@ -56,6 +56,9 @@
                     <p><strong>Hora:</strong> {{ reserva.viatge.data_hora_inici.strftime('%d %B %Y, %H:%M') }}</p>
                     <p><strong>Parada de recollida:</strong> {{ reserva.parada_recollida.descripcio }}</p>
                     <p><strong>Parada d'arribada:</strong> {{ reserva.parada_arribada.descripcio }}</p>
+                    {% if config.pagament_activat %}
+                        <p><strong>Preu:</strong> {{ reserva.viatge.import_ }} €</p>
+                    {% endif %}
                     <p><strong>Confirmada:</strong> {% if reserva.confirmada_conductor %} Sí {% else %} No {% endif %}
                     </p>
                 </div>
@@ -111,6 +114,9 @@
                 <p><strong>Parada de recollida:</strong> {{ viatge.parada_recollida.descripcio }}</p>
                 <p><strong>Parada d'arribada:</strong> {{ viatge.parada_arribada.descripcio }}</p>
                 <p><strong>Places disponibles:</strong> {{ viatge.places_restants }}</p>
+                {% if config.pagament_activat %}
+                <p><strong>Preu:</strong> {{ viatge.import_ }} €</p>
+                {% endif %}
             </div>
             {% if current_user.is_authenticated and has_passatger %}
             {% set is_reserved = viatge.reserves | selectattr('passatger_id', 'equalto', current_user.passatger.id) |

@@ -11,6 +11,7 @@ DONE LIST
 5. Asegurarme de que haya un sector que es del Puerto y otro que no al hacer CRUD de sectores
 6. Arreglo datos fijos de la base de datos
 7. Oculto botón de reservas si el viaje no tiene
+8. La información del pago de viajes se muestra o no dependiendo de un campo en la configuración (pagament_activat)
 
 IDs DE ELEMENTOS PARA FIJAR TAMAÑO EN utils.js
 
